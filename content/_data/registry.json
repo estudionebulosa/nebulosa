@@ -1,0 +1,57 @@
+{
+  "$comment": "Shared defaults — the R layer (docs/admin-fields.md). Articles reference these by key; inline objects still override.",
+
+  "authors": {
+    "marta": {
+      "name": "Marta Ruiz",
+      "role": "Product designer · Nebulosa Estudio",
+      "bio": "8 años diseñando apps de salud y fitness; lidera el área de producto en Nebulosa Estudio.",
+      "bioEn": "8 years designing health and fitness apps; leads the product area at Nebulosa Estudio.",
+      "image": "/assets/authors/marta.webp",
+      "url": "https://nebulosa.estudio/",
+      "sameAs": [
+        "https://x.com/marta_dev",
+        "https://www.linkedin.com/in/martaruiz",
+        "https://github.com/martaruiz"
+      ]
+    }
+  },
+
+  "reviewers": {
+    "default": {
+      "name": "Nebulosa Estudio",
+      "role": "Equipo de revisión técnica",
+      "roleEn": "Technical review team",
+      "credentials": "Ing. de software, 12 apps publicadas",
+      "credentialsEn": "Software engineers, 12 shipped apps",
+      "sameAs": ["https://nebulosa.estudio/"]
+    }
+  },
+
+  "apps": {
+    "pulse": {
+      "name": "Pulse",
+      "storeId": "app.nebulosa.pulse",
+      "category": "HealthApplication"
+    },
+    "verso": {
+      "name": "Verso",
+      "storeId": "app.nebulosa.verso",
+      "category": "ProductivityApplication"
+    }
+  },
+
+  "defaultImage": {
+    "src": "/assets/og-image.png",
+    "alt": "Nebulosa Estudio — diseño y desarrollo de apps",
+    "width": 1200,
+    "height": 630,
+    "type": "image/png"
+  },
+
+  "vocab": {
+    "sections": ["news", "review", "guide", "tutorial"],
+    "categories": ["Reviews", "Health", "News", "Guides"],
+    "tags": ["health-apps", "fitness", "2026-review", "wellbeing", "privacy", "accessibility", "seo", "geo", "llmo", "rag", "core-web-vitals"]
+  }
+}

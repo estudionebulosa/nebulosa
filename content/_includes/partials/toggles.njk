@@ -1,0 +1,36 @@
+<script>
+    /* Theme + language toggle — shared by landing, article and list.
+       Pages with real translations (data-alt-*) navigate; bilingual
+       single-file pages (data-title-*) switch chrome + tab title. */
+    (function () {
+        var html = document.documentElement;
+        var THEME_KEY = "neb-theme", LANG_KEY = "neb-lang";
+        var order = ["auto", "light", "dark"];
+        var themeBtn = document.getElementById("theme-toggle");
+        var langBtn = document.getElementById("lang-toggle");
+        function applyTheme(t) {
+            if (t === "auto") html.removeAttribute("data-theme");
+            else html.setAttribute("data-theme", t);
+        }
+        themeBtn && themeBtn.addEventListener("click", function () {
+            var cur = html.getAttribute("data-theme") || "auto";
+            var next = order[(order.indexOf(cur) + 1) % order.length];
+            applyTheme(next);
+            try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
+        });
+        langBtn && langBtn.addEventListener("click", function () {
+            var next = (html.lang || "es") === "es" ? "en" : "es";
+            /* a real translation exists → navigate to it */
+            var alt = html.getAttribute(next === "en" ? "data-alt-en" : "data-alt-es");
+            if (alt) { location.href = alt; return; }
+            /* otherwise just switch the chrome language */
+            html.lang = next;
+            try { localStorage.setItem(LANG_KEY, next); } catch (e) {}
+            var lbl = langBtn.getAttribute("data-label-" + next);
+            if (lbl) langBtn.setAttribute("aria-label", lbl);
+            var tEs = html.getAttribute("data-title-es");
+            var tEn = html.getAttribute("data-title-en");
+            if (tEs && tEn) document.title = next === "en" ? tEn : tEs;
+        });
+    })();
+</script>

@@ -1,0 +1,620 @@
+/* Nebulosa admin app — vanilla JS, raw-included by Nunjucks: never use template delimiters in this file. */
+(function () {
+  "use strict";
+  var A = window.__ADMIN__;
+  var main = document.getElementById("main");
+  var statusEl = document.getElementById("status");
+  var S = { tab: "articles", art: 0, view: "form", tpl: 0, dirty: false };
+
+  /* ── utils ──────────────────────────────────────────────── */
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+  function getPath(o, p) {
+    return p.split(".").reduce(function (x, k) { return x == null ? x : x[k]; }, o);
+  }
+  function setPath(o, p, v) {
+    var ks = p.split("."), i = 0;
+    for (; i < ks.length - 1; i++) {
+      if (o[ks[i]] == null) o[ks[i]] = /^\d+$/.test(ks[i + 1]) ? [] : {};
+      o = o[ks[i]];
+    }
+    o[ks[ks.length - 1]] = v;
+  }
+  function splitLines(s) { return String(s || "").split("\n").map(function (x) { return x.trim(); }).filter(Boolean); }
+  function joinLines(a) { return (a || []).join("\n"); }
+  function isTrue(v) { return v === true || v === "true"; }
+  function words(s) { return String(s || "").trim().split(/\s+/).filter(Boolean).length; }
+  function status(msg, cls) { statusEl.textContent = msg; statusEl.className = cls || ""; }
+  function art() { return A.articles[S.art]; }
+  function base(x) { return A.site.domain + (x.lang === "en" ? "/news/en/" : "/news/") + x.file.replace(/\.md$/, ".html"); }
+
+  async function api(url, body) {
+    var r = await fetch(url, body ? {
+      method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body)
+    } : {});
+    return r.json();
+  }
+  function reloadState() { location.hash = S.tab + "/" + S.art + "/" + S.view + "/" + S.tpl; location.reload(); }
+
+  /* ── small field renderers ──────────────────────────────── */
+  function f(path, label, type, opts) {
+    opts = opts || {};
+    var v = getPath(opts.root, path);
+    var inp;
+    if (type === "textarea") {
+      inp = '<textarea data-path="' + path + '"' + (opts.rows ? ' rows="' + opts.rows + '"' : "") +
+        (opts.code ? ' class="code"' : "") + ">" + esc(v) + "</textarea>";
+    } else if (type === "select") {
+      inp = '<select data-path="' + path + '">' + (opts.options || []).map(function (o) {
+        var val = Array.isArray(o) ? o[0] : o, lab = Array.isArray(o) ? o[1] : o;
+        return '<option value="' + esc(val) + '"' + (String(v) === String(val) ? " selected" : "") + ">" + esc(lab) + "</option>";
+      }).join("") + "</select>";
+    } else if (type === "checkbox") {
+      return '<label class="chk"><input type="checkbox" data-path="' + path + '"' + (isTrue(v) ? " checked" : "") +
+        " /> " + esc(label) + "</label>";
+    } else {
+      inp = '<input type="' + (type || "text") + '" data-path="' + path + '" value="' + esc(v) + '"' +
+        (opts.ph ? ' placeholder="' + esc(opts.ph) + '"' : "") + " />";
+    }
+    return '<label class="f"><span>' + esc(label) + (opts.hint ? ' — <i>' + esc(opts.hint) + "</i>" : "") + "</span>" + inp + "</label>";
+  }
+  function fList(path, label, root, sep, hint) {
+    return '<label class="f"><span>' + esc(label) + (hint ? " — <i>" + esc(hint) + "</i>" : "") + "</span>" +
+      '<textarea data-list="' + esc(sep) + '" data-path="' + path + '" rows="' +
+      (sep === "\n" ? 4 : 2) + '">' + esc(joinLines(getPath(root, path))) + "</textarea></label>";
+  }
+  function objList(path, root, fields, addBtn) {
+    var arr = getPath(root, path) || [];
+    var h = "";
+    arr.forEach(function (item, i) {
+      h += '<div class="item"><button class="del" data-del="' + path + "." + i + '" title="Eliminar">✕</button>';
+      fields.forEach(function (fd) {
+        h += f(path + "." + i + "." + fd.k, fd.l, fd.t || "text", { root: root, ph: fd.ph });
+      });
+      h += "</div>";
+    });
+    h += '<button class="btn ghost sm" data-add="' + path + '" data-kind="' + (addBtn || "") + '">+ añadir</button>';
+    return h;
+  }
+
+  /* ── field schemas ──────────────────────────────────────── */
+  var GLOBAL = [
+    ["Identidad", [
+      { k: "name", l: "Nombre del sitio" }, { k: "domain", l: "Dominio", hint: "https://…" },
+      { k: "url", l: "URL base" },
+      { k: "description", l: "Descripción (feeds, llms.txt, meta)", t: "textarea" },
+      { k: "email", l: "Email" },
+      { k: "locale", l: "og:locale" }, { k: "localeAlt", l: "og:locale alternado" }
+    ]],
+    ["Redes", [
+      { k: "social.twitter", l: "Twitter/X" }, { k: "social.twitterCreator", l: "Creator por defecto" },
+      { k: "social.mastodon", l: "Mastodon" }, { k: "social.linkedin", l: "LinkedIn (slug)" },
+      { k: "social.github", l: "GitHub" }, { k: "social.siteName", l: "og:site_name" }
+    ]],
+    ["Feeds y descubrimiento", [
+      { k: "rss", l: "RSS" }, { k: "jsonFeed", l: "JSON Feed" },
+      { k: "sitemap", l: "Sitemap" }, { k: "llms", l: "llms.txt" }, { k: "manifest", l: "Manifest" }
+    ]],
+    ["Assets", [
+      { k: "assets", l: "Carpeta assets" }, { k: "ogImage", l: "og:image" },
+      { k: "favicon", l: "Favicon" }, { k: "appleTouchIcon", l: "Apple touch icon" }
+    ]],
+    ["Tema y constantes", [
+      { k: "themeDark", l: "Tema oscuro" }, { k: "themeLight", l: "Tema claro" },
+      { k: "storeBase", l: "Play Store base" }, { k: "readingWpm", l: "Palabras/minuto" },
+      { k: "xDefault", l: "hreflang x-default", type: "select", options: [["es", "es"], ["en", "en"]] },
+      { k: "year", l: "Año (footer)" }
+    ]]
+  ];
+  var ART_G = [
+    ["Identity & publishing", [
+      { k: "title", l: "Title", }, { k: "description", l: "Description", t: "textarea", rows: 3 },
+      { k: "slug", l: "Slug (etiqueta)" }, { k: "translationKey", l: "translationKey", hint: "empareja ES↔EN" },
+      { k: "section", l: "Section", type: "vocab-section" },
+      { k: "draft", l: "Draft", type: "checkbox" }, { k: "noindex", l: "Noindex", type: "checkbox" },
+      { k: "featured", l: "Featured", type: "checkbox" },
+      { k: "permalink", l: "Permalink", hint: "generado" },
+      { k: "canonicalOverride", l: "canonicalOverride", hint: "avanzado / sindicación" }
+    ]],
+    ["Dates (E-E-A-T)", [
+      { k: "pubDate", l: "pubDate", hint: "ISO 8601" },
+      { k: "updatedDate", l: "updatedDate", type: "date" },
+      { k: "reviewedDate", l: "reviewedDate", type: "date" }
+    ]],
+    ["GEO / LLMO", [
+      { k: "answer", l: "answer (≤30 palabras)", t: "textarea", rows: 2 },
+      { k: "bluf", l: "bluf", t: "textarea", rows: 3 }
+    ]],
+    ["Social", [{ k: "tags", l: "tags", type: "list", sep: "," }, { k: "categories", l: "categories", type: "list", sep: "," }]]
+  ];
+
+  /* ── validation ─────────────────────────────────────────── */
+  function validate(a) {
+    var d = a.data, errs = [], warns = [];
+    if (!String(d.title || "").trim()) errs.push("title es obligatorio");
+    else if (String(d.title).length > 60) warns.push("title " + String(d.title).length + " caracteres (>60)");
+    if (!String(d.description || "").trim()) errs.push("description es obligatoria");
+    else if (String(d.description).length < 120 || String(d.description).length > 170)
+      warns.push("description " + String(d.description).length + " caracteres (objetivo 140–160)");
+    if (!d.pubDate && !isTrue(d.draft)) errs.push("draft:false necesita pubDate");
+    if (d.answer && words(d.answer) > 30) warns.push("answer tiene " + words(d.answer) + " palabras (>30)");
+    (d.stats || []).forEach(function (s, i) { if (!s.source) warns.push("stats[" + i + "] sin source"); });
+    (d.citations || []).forEach(function (c, i) {
+      if (c.url && !/^https?:\/\//.test(c.url)) warns.push("citations[" + i + "] url no http(s)");
+    });
+    if (d.translationKey) {
+      var dup = A.articles.some(function (x) {
+        return x !== a && x.lang === a.lang && x.data.translationKey === d.translationKey;
+      });
+      if (dup) errs.push("translationKey duplicada en " + a.lang.toUpperCase() + " (" + d.translationKey + ")");
+    }
+    if (!/^[-a-z0-9]+\.md$/.test(a.file)) warns.push("nombre de fichero no kebab-case ASCII: " + a.file);
+    return { errs: errs, warns: warns };
+  }
+  function chkbar(v) {
+    if (v.errs.length) return '<div class="chkbar bad">✗ ' + v.errs.map(esc).join("<br/>✗ ") + "</div>";
+    if (v.warns.length) return '<div class="chkbar warn">⚠ ' + v.warns.map(esc).join("<br/>⚠ ") + "</div>";
+    return '<div class="chkbar ok">✓ sin incidencias</div>';
+  }
+
+  /* ── tabs ───────────────────────────────────────────────── */
+  function renderGlobal() {
+    var h = '<div class="pane"><h2>Global — content/_data/site.json</h2>';
+    GLOBAL.forEach(function (g) {
+      h += '<div class="card"><h3>' + esc(g[0]) + "</h3>";
+      g[1].forEach(function (fd) {
+        h += f(fd.k, fd.l, fd.type || "text", { root: A.site, hint: fd.hint });
+      });
+      h += "</div>";
+    });
+    h += '<div class="card"><h3>Navegación (site.nav)</h3>' +
+      objList("nav", A.site, [{ k: "labelEs", l: "label ES" }, { k: "labelEn", l: "label EN" },
+      { k: "href", l: "href", ph: "/#apps" }, { k: "src", l: "src", ph: "@news | sitemap | rss" },
+      { k: "current", l: "current", t: "checkbox" }], "nav") + "</div>";
+    h += '<div class="card"><h3>Footer (site.footerLinks)</h3>' +
+      objList("footerLinks", A.site, [{ k: "labelEs", l: "label ES" }, { k: "labelEn", l: "label EN" },
+      { k: "label", l: "label fijo (opcional)" }, { k: "href", l: "href" }, { k: "src", l: "src" }], "footer") + "</div>";
+    h += '<div class="card"><h3>Compartir (site.share) — tokens {u} = url, {t} = título</h3>' +
+      objList("share", A.site, [{ k: "name", l: "Nombre" }, { k: "url", l: "URL con tokens" }], "share") + "</div>";
+    h += '<div class="toolbar"><button class="btn" data-save="global">Guardar Global</button></div></div>';
+    main.className = ""; main.innerHTML = h;
+  }
+
+  function renderRegistry() {
+    var R = A.registry;
+    var h = '<div class="pane"><h2>Registry — content/_data/registry.json</h2>';
+    h += '<div class="card"><h3>Autores (author: &lt;key&gt;)</h3><div class="hint">El campo bioEn se usa automáticamente en artículos EN.</div>';
+    var authors = Object.keys(R.authors);
+    authors.forEach(function (key, i) {
+      h += '<div class="item"><button class="del" data-delkey="authors.' + key + '">✕</button>';
+      h += f("authors." + key + ".name", "Nombre (" + key + ")", "text", { root: R });
+      h += f("authors." + key + ".role", "Rol", "text", { root: R });
+      h += f("authors." + key + ".bio", "Bio ES", "textarea", { root: R });
+      h += f("authors." + key + ".bioEn", "Bio EN", "textarea", { root: R });
+      h += f("authors." + key + ".image", "Foto", "text", { root: R });
+      h += f("authors." + key + ".url", "URL", "text", { root: R });
+      h += fList("authors." + key + ".sameAs", "sameAs (uno por línea)", R, "\n");
+      h += "</div>";
+    });
+    h += '<button class="btn ghost sm" data-addkey="authors">+ autor</button></div>';
+
+    h += '<div class="card"><h3>Revisores (reviewer: &lt;key&gt;)</h3>';
+    Object.keys(R.reviewers).forEach(function (key) {
+      h += '<div class="item">';
+      h += f("reviewers." + key + ".name", "Nombre (" + key + ")", "text", { root: R });
+      h += f("reviewers." + key + ".role", "Rol ES", "text", { root: R });
+      h += f("reviewers." + key + ".roleEn", "Rol EN", "text", { root: R });
+      h += f("reviewers." + key + ".credentials", "Credenciales ES", "text", { root: R });
+      h += f("reviewers." + key + ".credentialsEn", "Credenciales EN", "text", { root: R });
+      h += fList("reviewers." + key + ".sameAs", "sameAs", R, "\n");
+      h += "</div>";
+    });
+    h += '<button class="btn ghost sm" data-addkey="reviewers">+ revisor</button></div>';
+
+    h += '<div class="card"><h3>Apps — ASO (apps: [&lt;key&gt;])</h3>';
+    Object.keys(R.apps).forEach(function (key) {
+      h += '<div class="item"><div class="hint">referencia: apps: [' + esc(key) + "]</div>";
+      h += f("apps." + key + ".name", "Nombre", "text", { root: R });
+      h += f("apps." + key + ".storeId", "storeId", "text", { root: R });
+      h += f("apps." + key + ".category", "Categoría", "text", { root: R });
+      h += "</div>";
+    });
+    h += '<button class="btn ghost sm" data-addkey="apps">+ app</button></div>';
+
+    h += '<div class="card"><h3>Imagen por defecto (og:image)</h3>' +
+      f("defaultImage.src", "src", "text", { root: R }) +
+      f("defaultImage.alt", "alt", "text", { root: R }) +
+      '<div class="row">' + f("defaultImage.width", "width", "text", { root: R }) +
+      f("defaultImage.height", "height", "text", { root: R }) +
+      f("defaultImage.type", "type", "text", { root: R }) + "</div></div>";
+
+    h += '<div class="card"><h3>Vocabulario</h3>' +
+      fList("vocab.sections", "sections", R, ",", "select en artículos") +
+      fList("vocab.categories", "categories", R, ",") +
+      fList("vocab.tags", "tags", R, ",") + "</div>";
+    h += '<div class="toolbar"><button class="btn" data-save="registry">Guardar Registry</button></div></div>';
+    main.className = ""; main.innerHTML = h;
+  }
+
+  function renderArticles() {
+    var list = '<div class="side"><h3>Artículos (' + A.articles.length + ')</h3>';
+    A.articles.forEach(function (a, i) {
+      var pair = a.data.translationKey && A.articles.some(function (x) {
+        return x !== a && x.lang !== a.lang && x.data.translationKey === a.data.translationKey;
+      });
+      list += '<div class="aticle' + (i === S.art ? " on" : "") + '" data-art="' + i + '">' +
+        '<div class="t">' + esc(a.data.title || "(sin título)") + "</div>" +
+        '<div class="badges"><span class="bdg ' + a.lang + '">' + a.lang + "</span>" +
+        (isTrue(a.data.draft) ? '<span class="bdg draft">draft</span>' : "") +
+        (pair ? '<span class="bdg pair">⇄</span>' : "") +
+        '<span class="bdg">' + esc(a.data.pubDate ? String(a.data.pubDate).slice(0, 10) : "—") + "</span></div></div>";
+    });
+    list += '<div class="toolbar"><button class="btn sm" data-newarticle>＋ Nuevo artículo</button></div></div>';
+
+    var a = art();
+    if (!a) { main.className = ""; main.innerHTML = list + '<div class="pane">Sin artículos</div>'; return; }
+    var d = a.data;
+    var v = validate(a);
+    var pane = '<div class="pane"><div class="toolbar">' +
+      '<b>' + esc(a.path) + "</b>" +
+      '<span class="bdg ' + a.lang + '">' + a.lang + "</span>" +
+      '<div class="seg" style="margin:0 0 0 auto">' +
+      ["form", "yaml", "body"].map(function (x) {
+        return '<button data-view="' + x + '"' + (S.view === x ? ' class="on"' : "") + ">" +
+          (x === "form" ? "Formulario" : x === "yaml" ? "YAML" : "Cuerpo") + "</button>";
+      }).join("") + "</div>" +
+      '<button class="btn" data-save="article">Guardar artículo</button></div>';
+
+    if (S.view === "form") {
+      pane += chkbar(v);
+      ART_G.forEach(function (g) {
+        pane += '<div class="card"><h3>' + esc(g[0]) + "</h3>";
+        g[1].forEach(function (fd) {
+          if (fd.type === "vocab-section") {
+            var opts = [["", "—"]].concat((A.registry.vocab.sections || []).concat(
+              d.section && (A.registry.vocab.sections || []).indexOf(d.section) < 0 ? [d.section] : []).map(function (s) { return [s, s]; }));
+            pane += f(fd.k, fd.l, "select", { root: d, options: opts });
+          } else if (fd.type === "list") {
+            pane += fList(fd.k, fd.l, d, fd.sep, "uno por línea o coma");
+          } else {
+            var ty = fd.type === "checkbox" ? "checkbox" : (fd.t || "text");
+            pane += f(fd.k, fd.l, ty, { root: d, rows: fd.rows, hint: fd.hint });
+          }
+        });
+        pane += "</div>";
+      });
+      /* people */
+      pane += '<div class="card"><h3>People (E-E-A-T)</h3>';
+      var aopts = [["", "— sin autor —"]].concat(Object.keys(A.registry.authors).map(function (k) { return [k, k + " · " + A.registry.authors[k].name]; }));
+      if (d.author && typeof d.author === "object") {
+        pane += '<div class="hint">author inline (objeto personalizado)</div><textarea data-jsonpath="author">' +
+          esc(JSON.stringify(d.author, null, 2)) + "</textarea>" +
+          '<button class="btn ghost sm" data-clearfield="author">→ usar author del registry</button>';
+      } else {
+        pane += f("author", "author (registry)", "select", { root: d, options: aopts });
+      }
+      var ropts = [["", "— sin revisor —"]].concat(Object.keys(A.registry.reviewers).map(function (k) { return [k, k]; }));
+      if (d.reviewer && typeof d.reviewer === "object") {
+        pane += '<div class="hint">reviewer inline</div><textarea data-jsonpath="reviewer">' +
+          esc(JSON.stringify(d.reviewer, null, 2)) + "</textarea>" +
+          '<button class="btn ghost sm" data-clearfield="reviewer">→ usar registry</button>';
+      } else {
+        pane += f("reviewer", "reviewer (registry)", "select", { root: d, options: ropts });
+      }
+      pane += "</div>";
+
+      /* GEO lists */
+      pane += '<div class="card"><h3>keyTakeaways</h3>' +
+        fList("keyTakeaways", "Una idea clave por línea", d, "\n") + "</div>";
+      pane += '<div class="card"><h3>FAQ</h3>' +
+        objList("faq", d, [{ k: "question", l: "Pregunta", t: "textarea" }, { k: "answer", l: "Respuesta", t: "textarea" }], "faq") + "</div>";
+      pane += '<div class="card"><h3>Stats (toda stat necesita source)</h3>' +
+        objList("stats", d, [{ k: "label", l: "Label" }, { k: "value", l: "Valor" }, { k: "source", l: "Source" }], "stats") + "</div>";
+      pane += '<div class="card"><h3>Citations</h3>' +
+        objList("citations", d, [{ k: "title", l: "Título" }, { k: "url", l: "URL" }, { k: "publisher", l: "Publisher" }, { k: "date", l: "Fecha" }], "citations") + "</div>";
+
+      /* media */
+      pane += '<div class="card"><h3>Media</h3>';
+      if (d.image && typeof d.image === "object") {
+        pane += '<div class="hint">override de la imagen global</div>' +
+          f("image.src", "src", "text", { root: d }) + f("image.alt", "alt", "text", { root: d }) +
+          '<div class="row">' + f("image.width", "width", "text", { root: d }) +
+          f("image.height", "height", "text", { root: d }) + f("image.type", "type", "text", { root: d }) + "</div>" +
+          '<button class="btn ghost sm" data-clearfield="image">→ volver a la imagen global</button>';
+      } else {
+        pane += '<div class="hint">Sin override — se usa registry.defaultImage (' + esc(A.registry.defaultImage.src) + ")</div>" +
+          '<button class="btn ghost sm" data-addfield="image">+ override de imagen</button>';
+      }
+      if (d.video && typeof d.video === "object") {
+        pane += '<div class="row" style="margin-top:8px">' + f("video.src", "video src", "text", { root: d }) +
+          f("video.poster", "poster", "text", { root: d }) + f("video.duration", "dur (s)", "text", { root: d }) + "</div>" +
+          '<button class="btn ghost sm" data-clearfield="video">quitar video</button>';
+      } else {
+        pane += '<div style="margin-top:8px"><button class="btn ghost sm" data-addfield="video">+ añadir video</button></div>';
+      }
+      pane += "</div>";
+
+      /* ASO */
+      pane += '<div class="card"><h3>ASO — apps</h3><div class="hint">checkboxes sobre registry.apps</div>';
+      var sel = (d.apps || []).filter(function (x) { return typeof x === "string"; });
+      Object.keys(A.registry.apps).forEach(function (k) {
+        pane += '<label class="chk"><input type="checkbox" data-appkey="' + k + '"' +
+          (sel.indexOf(k) >= 0 ? " checked" : "") + " /> " + esc(A.registry.apps[k].name) +
+          " <i>(" + k + ")</i></label>";
+      });
+      (d.apps || []).filter(function (x) { return typeof x !== "string"; }).forEach(function (inline, i) {
+        pane += '<div class="hint">inline: ' + esc(inline.name || "?") + " (no usa registry)</div>";
+      });
+      pane += "</div>";
+    } else if (S.view === "yaml") {
+      pane += '<div class="hint">Vista generada del front matter actual (copia los cambios al formulario; el guardado emite este YAML).</div>' +
+        '<textarea class="code" id="yamlview" rows="30" readonly>Cargando…</textarea>';
+      loadYaml();
+    } else {
+      pane += '<textarea class="code" data-body rows="26" style="width:100%">' + esc(a.body) + "</textarea>" +
+        '<div class="wordcount" id="wc"></div>';
+      updateWc();
+    }
+    pane += "</div>";
+    main.className = ""; main.innerHTML = list + pane;
+  }
+
+  function renderTemplates() {
+    var list = '<div class="side"><h3>Plantillas (.njk)</h3>';
+    A.templates.forEach(function (t, i) {
+      list += '<div class="aticle' + (i === S.tpl ? " on" : "") + '" data-tpl-i="' + i + '">' +
+        '<div class="t">' + esc(t.path.replace("content/_includes/", "")) + "</div></div>";
+    });
+    list += '<div class="hint">Editor simple — sin preview: guarda y abre la página en otra pestaña (o usa Preview/Artículos).</div></div>';
+    var t = A.templates[S.tpl];
+    var pane = '<div class="pane"><div class="toolbar"><b>' + esc(t.path) + "</b>" +
+      '<button class="btn" data-save="template" style="margin-left:auto">Guardar plantilla</button></div>' +
+      '<textarea class="code" data-tpl rows="34" style="width:100%">' + esc(t.content) + "</textarea></div>";
+    main.className = ""; main.innerHTML = list + pane;
+  }
+
+  function renderPreview() {
+    var a = art();
+    var list = '<div class="side"><h3>Preview</h3>';
+    A.articles.forEach(function (x, i) {
+      list += '<div class="aticle' + (i === S.art ? " on" : "") + '" data-art="' + i + '">' +
+        '<div class="t">' + esc(x.data.title || "(sin título)") + "</div>" +
+        '<div class="badges"><span class="bdg ' + x.lang + '">' + x.lang + "</span></div></div>";
+    });
+    list += "</div>";
+    if (!a) { main.className = "wide"; main.innerHTML = list; return; }
+    var d = a.data, site = A.site;
+    var canon = d.canonicalOverride || base(a);
+    var pair = d.translationKey ? A.articles.filter(function (x) {
+      return x !== a && x.lang !== a.lang && x.data.translationKey === d.translationKey;
+    })[0] : null;
+    var esUrl = a.lang === "es" ? base(a) : pair ? base(pair) : "";
+    var enUrl = a.lang === "en" ? base(a) : pair ? base(pair) : "";
+    var xdef = !pair ? "— (sin hreflang)" : site.xDefault === "en" ? enUrl : esUrl;
+    var img = (d.image && d.image.src) || site.ogImage;
+    var wm = Math.max(1, Math.ceil(words(a.body) / (site.readingWpm || 200)));
+    var titleTag = (d.title || "(sin título)") + " · " + site.name;
+
+    var pane = '<div class="pane"><h2>Preview — ' + esc(a.path) + "</h2>";
+    var v = validate(a);
+    pane += chkbar(v);
+    pane += '<div class="row" style="align-items:start">' +
+      '<div><h3>SERP</h3><div class="serp"><div class="u">' + esc(canon.replace("https://", "")) + "</div>" +
+      '<div class="t">' + esc(String(titleTag).length > 60 ? String(titleTag).slice(0, 57) + "…" : titleTag) + "</div>" +
+      '<div class="d">' + esc(String(d.description || "").length > 165 ? String(d.description).slice(0, 162) + "…" : d.description || "") + "</div></div></div>" +
+      '<div><h3>Tarjeta X / Twitter</h3><div class="xcard"><div class="img">NEBULOSA</div><div class="bx">' +
+      '<div class="m">' + esc(canon.replace("https://", "").split("/")[0]) + "</div>" +
+      '<div class="tt">' + esc(d.title || "") + "</div>" +
+      '<div class="ds">' + esc(String(d.description || "").slice(0, 120)) + "…</div></div></div></div></div>";
+
+    pane += '<div class="card" style="margin-top:14px"><h3>Computados (automáticos)</h3><div class="kv">' +
+      "<b>canonical</b><span>" + esc(canon) + "</span>" +
+      "<b>robots</b><span>" + (isTrue(d.noindex) ? "noindex, nofollow" : "index, follow, max-image-preview:large…") + "</span>" +
+      "<b>hreflang es</b><span>" + esc(esUrl || "— (sin traducción)") + "</span>" +
+      "<b>hreflang en</b><span>" + esc(enUrl || "—") + "</span>" +
+      "<b>x-default</b><span>" + esc(xdef) + "</span>" +
+      "<b>og:image</b><span>" + esc(img) + " (1200×630)</span>" +
+      "<b>keywords</b><span>" + esc((d.tags || []).join(", ") || "—") + "</span>" +
+      "<b>lectura</b><span>" + wm + " min (" + words(a.body) + " palabras @ " + site.readingWpm + " wpm)</span>" +
+      "<b>author</b><span>" + esc(typeof d.author === "string" ? (A.registry.authors[d.author] || {}).name || d.author + " (sin resolver)" : (d.author && d.author.name) || "—") + "</span>" +
+      "<b>apps</b><span>" + esc((d.apps || []).map(function (x) { return typeof x === "string" ? x : (x.name || "?"); }).join(", ") || "—") + "</span>" +
+      "<b>title tag</b><span>" + esc(titleTag) + "</span>" +
+      "</div></div>";
+    pane += '<div class="hint">El JSON-LD completo (10 nodos) se genera en el build — visible en el HTML final.</div></div>';
+    main.className = ""; main.innerHTML = list + pane;
+  }
+
+  function render() {
+    document.querySelectorAll("#tabs button").forEach(function (b) {
+      b.classList.toggle("on", b.dataset.tab === S.tab);
+    });
+    if (S.tab === "global") renderGlobal();
+    else if (S.tab === "registry") renderRegistry();
+    else if (S.tab === "articles") renderArticles();
+    else if (S.tab === "templates") renderTemplates();
+    else renderPreview();
+  }
+
+  /* ── yaml view (server dumps it) ────────────────────────── */
+  async function loadYaml() {
+    var el = document.getElementById("yamlview");
+    if (!el) return;
+    var r = await api("/api/yaml", { data: art().data });
+    el.value = r.yaml || r.error || "(error)";
+  }
+  function updateWc() {
+    var el = document.getElementById("wc");
+    if (!el) return;
+    var n = words(art().body);
+    el.textContent = n + " palabras · " + Math.max(1, Math.ceil(n / (A.site.readingWpm || 200))) + " min de lectura";
+  }
+
+  /* ── save ───────────────────────────────────────────────── */
+  async function doSave(kind) {
+    try {
+      if (kind === "article") {
+        var a = art(), v = validate(a);
+        if (v.errs.length && !confirm("Errores:\n- " + v.errs.join("\n- ") + "\n\n¿Guardar de todos modos?")) return;
+        status("guardando " + a.path + "…");
+        var r = await api("/api/save", { path: a.path, data: a.data, body: a.body });
+        if (!r.ok) return status("✗ " + r.error, "err");
+      } else if (kind === "global") {
+        if (!/^https?:\/\//.test(A.site.domain || "")) {
+          if (!confirm("El domain no parece una URL. ¿Guardar igualmente?")) return;
+        }
+        status("guardando site.json…");
+        var r2 = await api("/api/save", { path: "content/_data/site.json", content: JSON.stringify(A.site, null, 2) + "\n" });
+        if (!r2.ok) return status("✗ " + r2.error, "err");
+      } else if (kind === "registry") {
+        status("guardando registry.json…");
+        var r3 = await api("/api/save", { path: "content/_data/registry.json", content: JSON.stringify(A.registry, null, 2) + "\n" });
+        if (!r3.ok) return status("✗ " + r3.error, "err");
+      } else if (kind === "template") {
+        var t = A.templates[S.tpl];
+        status("guardando " + t.path + "…");
+        var r4 = await api("/api/save", { path: t.path, content: t.content });
+        if (!r4.ok) return status("✗ " + r4.error, "err");
+      }
+      status("reconstruyendo…");
+      var b = await api("/api/build");
+      if (!b.ok) return status("✗ build falló — mira la consola", "err");
+      status("✓ guardado + build OK", "ok");
+      setTimeout(reloadState, 500);
+    } catch (e) {
+      status("✗ " + e.message, "err");
+    }
+  }
+
+  async function newArticle() {
+    var lang = prompt("Idioma (es/en):", "es");
+    if (lang !== "es" && lang !== "en") return;
+    var slug = prompt("Slug en kebab-case (" + lang + "):");
+    if (!slug || !/^[-a-z0-9]+$/.test(slug)) return alert("slug no válido (solo a-z 0-9 y guiones)");
+    var path = "content/news/" + (lang === "en" ? "en/" : "") + slug + ".md";
+    if (A.articles.some(function (x) { return x.path === path; })) return alert("ya existe");
+    var now = new Date().toISOString();
+    var data = {
+      title: "", description: "", slug: slug, translationKey: slug, section: "news", lang: lang,
+      layout: "layouts/article.njk", permalink: "/news/" + (lang === "en" ? "en/" : "") + slug + ".html",
+      pubDate: now, draft: "true", author: "marta", reviewer: "default", apps: []
+    };
+    var r = await api("/api/save", { path: path, data: data, body: "Escribe aquí el cuerpo del artículo.\n" });
+    if (!r.ok) return status("✗ " + r.error, "err");
+    status("reconstruyendo…");
+    var b = await api("/api/build");
+    if (!b.ok) return status("✗ build falló", "err");
+    location.hash = "articles/0/form/" + S.tpl; /* newest pubDate → index 0 */
+    location.reload();
+  }
+
+  /* ── events ─────────────────────────────────────────────── */
+  document.getElementById("tabs").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-tab]");
+    if (!b) return;
+    S.tab = b.dataset.tab; render();
+  });
+
+  main.addEventListener("input", function (e) {
+    var el = e.target;
+    if (el.dataset.path !== undefined && el.tagName !== "BUTTON") {
+      var root = S.tab === "global" ? A.site : S.tab === "registry" ? A.registry : art().data;
+      if (el.dataset.list) {
+        var sep = el.dataset.list === "," ? "," : "\n";
+        setPath(root, el.dataset.path, el.value.split(sep).map(function (x) { return x.trim(); }).filter(Boolean));
+      } else {
+        setPath(root, el.dataset.path, el.value);
+      }
+    } else if (el.dataset.jsonpath) {
+      try { setPath(art().data, el.dataset.jsonpath, JSON.parse(el.value)); } catch (err) { /* JSON incompleto */ }
+    } else if (el.dataset.body !== undefined) {
+      art().body = el.value; updateWc();
+    } else if (el.dataset.tpl !== undefined) {
+      A.templates[S.tpl].content = el.value;
+    }
+  });
+  main.addEventListener("change", function (e) {
+    var el = e.target;
+    if (el.type === "checkbox" && el.dataset.path !== undefined) {
+      var root = S.tab === "global" ? A.site : S.tab === "registry" ? A.registry : art().data;
+      setPath(root, el.dataset.path, el.checked);
+    } else if (el.dataset.appkey !== undefined) {
+      var d = art().data;
+      var arr = (d.apps || []).filter(function (x) { return typeof x === "string"; });
+      var others = (d.apps || []).filter(function (x) { return typeof x !== "string"; });
+      if (el.checked) { if (arr.indexOf(el.dataset.appkey) < 0) arr.push(el.dataset.appkey); }
+      else arr = arr.filter(function (x) { return x !== el.dataset.appkey; });
+      d.apps = arr.concat(others);
+    } else if (el.dataset.path !== undefined) {
+      var r2 = S.tab === "global" ? A.site : S.tab === "registry" ? A.registry : art().data;
+      setPath(r2, el.dataset.path, el.value);
+    }
+  });
+
+  var ADD = {
+    faq: { question: "", answer: "" },
+    stats: { label: "", value: "", source: "" },
+    citations: { title: "", url: "", publisher: "", date: "" },
+    nav: { labelEs: "", labelEn: "", href: "", src: "", current: false },
+    footer: { labelEs: "", labelEn: "", href: "", src: "" },
+    share: { name: "", url: "https://…?url={u}&text={t}" }
+  };
+  main.addEventListener("click", function (e) {
+    var el = e.target.closest("button, [data-art], [data-tpl-i]");
+    if (!el) return;
+    var root = S.tab === "global" ? A.site : S.tab === "registry" ? A.registry : art() && art().data;
+    if (el.dataset.art !== undefined) { S.art = +el.dataset.art; S.view = "form"; render(); return; }
+    if (el.dataset.tplI !== undefined) { S.tpl = +el.dataset.tplI; render(); return; }
+    if (el.dataset.view) { S.view = el.dataset.view; render(); return; }
+    if (el.dataset.save) { doSave(el.dataset.save); return; }
+    if (el.dataset.newarticle !== undefined) { newArticle(); return; }
+    if (el.dataset.add && root) {
+      var arr = getPath(root, el.dataset.add) || [];
+      arr.push(JSON.parse(JSON.stringify(ADD[el.dataset.kind] || {})));
+      setPath(root, el.dataset.add, arr); render(); return;
+    }
+    if (el.dataset.del && root) {
+      var ks = el.dataset.del.split("."), idx = +ks.pop();
+      if (!confirm("¿Eliminar " + ks.join(".") + "[" + idx + "]?")) return;
+      var target = getPath(root, ks.join("."));
+      target.splice(idx, 1); render(); return;
+    }
+    if (el.dataset.addkey) {
+      var key = prompt("Nueva clave (kebab):");
+      if (!key) return;
+      var tbl = A.registry[el.dataset.addkey];
+      if (tbl[key]) return alert("ya existe");
+      tbl[key] = el.dataset.addkey === "apps"
+        ? { name: key, storeId: "", category: "MobileApplication" }
+        : el.dataset.addkey === "authors"
+          ? { name: "", role: "", bio: "", bioEn: "", image: "", url: "", sameAs: [] }
+          : { name: "", role: "", roleEn: "", credentials: "", credentialsEn: "", sameAs: [] };
+      render(); return;
+    }
+    if (el.dataset.delkey) {
+      if (!confirm("¿Eliminar " + el.dataset.delkey + "? Los artículos que lo referencien quedarán sin resolver.")) return;
+      delete getPath(A.registry, el.dataset.delkey); render(); return;
+    }
+    if (el.dataset.clearfield) {
+      delete art().data[el.dataset.clearfield]; render(); return;
+    }
+    if (el.dataset.addfield) {
+      art().data[el.dataset.addfield] = el.dataset.addfield === "image"
+        ? { src: A.site.ogImage, alt: "", width: "1200", height: "630", type: "image/svg+xml" }
+        : { src: "", poster: "", duration: "" };
+      render(); return;
+    }
+  });
+
+  /* ── boot from hash: #tab/art/view/tpl ──────────────────── */
+  (function () {
+    var h = location.hash.replace(/^#/, "").split("/");
+    if (h[0]) S.tab = h[0];
+    if (h[1] !== undefined && h[1] !== "") S.art = Math.min(+h[1] || 0, A.articles.length - 1);
+    if (h[2]) S.view = h[2];
+    if (h[3] !== undefined && h[3] !== "") S.tpl = +h[3] || 0;
+    render();
+  })();
+})();

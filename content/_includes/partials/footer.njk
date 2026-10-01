@@ -1,0 +1,10 @@
+<footer>
+  <div class="wrap foot">
+    <div>© {{ site.year }} {{ site.name }} · <a href="mailto:{{ site.email }}">{{ site.email }}</a></div>
+    <nav class="foot-links" aria-label="Secundaria">
+      {% for item in site.footerLinks %}
+      <a href="{{ newsIndex if item.src == '@news' else (site[item.src] if item.src else item.href) }}">{% if item.label %}{{ item.label }}{% else %}<span lang="es">{{ item.labelEs }}</span><span lang="en">{{ item.labelEn }}</span>{% endif %}</a>
+      {% endfor %}
+    </nav>
+  </div>
+</footer>

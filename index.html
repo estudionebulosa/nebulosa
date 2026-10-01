@@ -1,0 +1,2284 @@
+<!doctype html>
+<html lang="es" data-theme="auto">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, viewport-fit=cover"
+        />
+        <meta name="color-scheme" content="light dark" />
+        <meta
+            name="theme-color"
+            content="#0a0a14"
+            media="(prefers-color-scheme: dark)"
+        />
+        <meta
+            name="theme-color"
+            content="#fafafc"
+            media="(prefers-color-scheme: light)"
+        />
+
+        <title>
+            Nebulosa Estudio — Aplicaciones móviles hechas a medida
+        </title>
+        <meta
+            name="description"
+            content="Estudio independiente de desarrollo de aplicaciones móviles. Diseñamos y construimos apps para iOS y Android, publicadas en Google Play y App Store."
+        />
+        <meta
+            name="keywords"
+            content="estudio de apps, desarrollo de apps móviles, apps Android, Google Play, iOS, diseño de apps"
+        />
+        <meta name="author" content="Nebulosa Estudio" />
+        <meta name="robots" content="index, follow, max-image-preview:large" />
+
+        <link rel="canonical" href="https://nebulosa.estudio/" />
+        <link
+            rel="alternate"
+            hreflang="es"
+            href="https://nebulosa.estudio/?lang=es"
+        />
+        <link
+            rel="alternate"
+            hreflang="en"
+            href="https://nebulosa.estudio/?lang=en"
+        />
+        <link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://nebulosa.estudio/"
+        />
+
+        <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Nebulosa Estudio" />
+        <meta
+            property="og:title"
+            content="Nebulosa Estudio — Apps móviles hechas con cuidado"
+        />
+        <meta
+            property="og:description"
+            content="Estudio independiente de desarrollo de aplicaciones móviles para iOS y Android."
+        />
+        <meta property="og:url" content="https://nebulosa.estudio/" />
+        <meta
+            property="og:image"
+            content="https://nebulosa.estudio/assets/og-image.svg"
+        />
+        <meta property="og:locale" content="es_ES" />
+        <meta property="og:locale:alternate" content="en_US" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+            name="twitter:title"
+            content="Nebulosa Estudio — Apps móviles hechas con cuidado"
+        />
+        <meta
+            name="twitter:description"
+            content="Estudio independiente de desarrollo de aplicaciones móviles para iOS y Android."
+        />
+        <meta
+            name="twitter:image"
+            content="https://nebulosa.estudio/assets/og-image.svg"
+        />
+
+        <link rel="preload" as="image" href="/assets/og-image.svg" />
+
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@graph": [
+                    {
+                        "@type": "Organization",
+                        "@id": "https://nebulosa.estudio/#org",
+                        "name": "Nebulosa Estudio",
+                        "url": "https://nebulosa.estudio/",
+                        "logo": "https://nebulosa.estudio/assets/logo.svg",
+                        "description": "Estudio independiente de desarrollo de aplicaciones móviles.",
+                        "sameAs": [
+                            "https://twitter.com/nebulosa",
+                            "https://github.com/nebulosa",
+                            "https://www.linkedin.com/company/nebulosa-estudio"
+                        ]
+                    },
+                    {
+                        "@type": "WebSite",
+                        "@id": "https://nebulosa.estudio/#site",
+                        "url": "https://nebulosa.estudio/",
+                        "name": "Nebulosa Estudio",
+                        "inLanguage": ["es-ES", "en-US"],
+                        "publisher": { "@id": "https://nebulosa.estudio/#org" }
+                    },
+                    {
+                        "@type": "SoftwareApplication",
+                        "name": "Pulse",
+                        "applicationCategory": "HealthApplication",
+                        "operatingSystem": "ANDROID, IOS",
+                        "description": "Entrenador personal minimalista con planes adaptativos.",
+                        "offers": {
+                            "@type": "Offer",
+                            "price": "0",
+                            "priceCurrency": "EUR"
+                        },
+                        "installUrl": "https://play.google.com/store/apps/details?id=app.nebulosa.pulse"
+                    },
+                    {
+                        "@type": "SoftwareApplication",
+                        "name": "Verso",
+                        "applicationCategory": "ProductivityApplication",
+                        "operatingSystem": "ANDROID, IOS",
+                        "description": "Diario de lectura con seguimiento de hábitos.",
+                        "offers": {
+                            "@type": "Offer",
+                            "price": "0",
+                            "priceCurrency": "EUR"
+                        },
+                        "installUrl": "https://play.google.com/store/apps/details?id=app.nebulosa.verso"
+                    },
+                    {
+                        "@type": "SoftwareApplication",
+                        "name": "Drift",
+                        "applicationCategory": "TravelApplication",
+                        "operatingSystem": "ANDROID, IOS",
+                        "description": "Compañero de viaje con mapas offline y diario.",
+                        "offers": {
+                            "@type": "Offer",
+                            "price": "0",
+                            "priceCurrency": "EUR"
+                        },
+                        "installUrl": "https://play.google.com/store/apps/details?id=app.nebulosa.drift"
+                    },
+                    {
+                        "@type": "SoftwareApplication",
+                        "name": "Lumen",
+                        "applicationCategory": "LifestyleApplication",
+                        "operatingSystem": "ANDROID",
+                        "description": "Control de iluminación y escenas para el hogar.",
+                        "offers": {
+                            "@type": "Offer",
+                            "price": "0",
+                            "priceCurrency": "EUR"
+                        },
+                        "installUrl": "https://play.google.com/store/apps/details?id=app.nebulosa.lumen"
+                    }
+                ]
+            }
+        </script>
+
+        <script>
+            /* Theme & language bootstrap — runs before paint to prevent flash */
+            (function () {
+                try {
+                    var t = localStorage.getItem("neb-theme");
+                    var l = localStorage.getItem("neb-lang");
+                    if (t)
+                        document.documentElement.setAttribute("data-theme", t);
+                    if (!l) {
+                        l =
+                            (navigator.language || "es")
+                                .slice(0, 2)
+                                .toLowerCase() === "en"
+                                ? "en"
+                                : "es";
+                    }
+                    document.documentElement.lang = l;
+                } catch (e) {}
+            })();
+        </script>
+
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+            }
+            * {
+                margin: 0;
+            }
+
+
+            :root {
+                --bg: #0a0a14;
+                --surface: #11111d;
+                --surface-2: #161628;
+                --border: #22223a;
+                --fg: #e8e8f0;
+                --fg-muted: #8a8aa8;
+                --fg-dim: #5a5a78;
+                --accent: #8b5cf6;
+                --accent-2: #ec4899;
+                --accent-3: #22d3ee;
+                --glow:
+                    radial-gradient(
+                        60% 80% at 20% 0%,
+                        rgba(139, 92, 246, 0.18),
+                        transparent 60%
+                    ),
+                    radial-gradient(
+                        50% 60% at 90% 20%,
+                        rgba(34, 211, 238, 0.1),
+                        transparent 60%
+                    );
+                --radius: 14px;
+                --radius-lg: 22px;
+                --maxw: 1120px;
+                --t: 180ms cubic-bezier(0.2, 0.7, 0.2, 1);
+            }
+
+            @media only screen and (min-width: 1200px) {
+                --maxw: 1600px;
+            }
+            @media (prefers-color-scheme: light) {
+                :root:not([data-theme="dark"]) {
+                    --bg: #fafafc;
+                    --surface: #ffffff;
+                    --surface-2: #f3f3f8;
+                    --border: #e4e4ee;
+                    --fg: #0a0a14;
+                    --fg-muted: #5a5a78;
+                    --fg-dim: #8a8aa8;
+                    --glow:
+                        radial-gradient(
+                            60% 80% at 20% 0%,
+                            rgba(139, 92, 246, 0.1),
+                            transparent 60%
+                        ),
+                        radial-gradient(
+                            50% 60% at 90% 20%,
+                            rgba(34, 211, 238, 0.06),
+                            transparent 60%
+                        );
+                }
+            }
+            :root[data-theme="light"] {
+                --bg: #fafafc;
+                --surface: #ffffff;
+                --surface-2: #f3f3f8;
+                --border: #e4e4ee;
+                --fg: #0a0a14;
+                --fg-muted: #5a5a78;
+                --fg-dim: #8a8aa8;
+                --glow:
+                    radial-gradient(
+                        60% 80% at 20% 0%,
+                        rgba(139, 92, 246, 0.1),
+                        transparent 60%
+                    ),
+                    radial-gradient(
+                        50% 60% at 90% 20%,
+                        rgba(34, 211, 238, 0.06),
+                        transparent 60%
+                    );
+            }
+            :root[data-theme="dark"] {
+                --bg: #0a0a14;
+                --surface: #11111d;
+                --surface-2: #161628;
+                --border: #22223a;
+                --fg: #e8e8f0;
+                --fg-muted: #8a8aa8;
+                --fg-dim: #5a5a78;
+                --glow:
+                    radial-gradient(
+                        60% 80% at 20% 0%,
+                        rgba(139, 92, 246, 0.18),
+                        transparent 60%
+                    ),
+                    radial-gradient(
+                        50% 60% at 90% 20%,
+                        rgba(34, 211, 238, 0.1),
+                        transparent 60%
+                    );
+            }
+
+            html {
+                color-scheme: light dark;
+                background: var(--bg);
+            }
+            body {
+                background: var(--bg);
+                color: var(--fg);
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    "Helvetica Neue", Arial, sans-serif;
+                font-size: 16px;
+                line-height: 1.6;
+                -webkit-font-smoothing: antialiased;
+                text-rendering: optimizeLegibility;
+                min-height: 100dvh;
+                background-image: var(--glow);
+                background-attachment: fixed;
+            }
+            img,
+            svg {
+                max-width: 100%;
+                display: block;
+                height: auto;
+            }
+            a {
+                color: var(--accent);
+                text-decoration: none;
+                transition: color var(--t);
+            }
+            a:hover {
+                color: var(--accent-2);
+            }
+            :focus-visible {
+                outline: 2px solid var(--accent);
+                outline-offset: 3px;
+                border-radius: 4px;
+            }
+            button {
+                font: inherit;
+                cursor: pointer;
+                border: 0;
+                background: none;
+                color: inherit;
+            }
+            ::selection {
+                background: var(--accent);
+                color: #fff;
+            }
+
+            .skip {
+                position: absolute;
+                left: -9999px;
+                top: 0;
+                background: var(--accent);
+                color: #fff;
+                padding: 0.75rem 1rem;
+                border-radius: 0 0 var(--radius) 0;
+                z-index: 1000;
+                font-weight: 600;
+            }
+            .skip:focus {
+                left: 0;
+            }
+
+            .wrap {
+                max-width: var(--maxw);
+                margin: 0 auto;
+                padding: 0 1.25rem;
+            }
+
+            header {
+                position: sticky;
+                top: 0;
+                z-index: 50;
+                backdrop-filter: saturate(180%) blur(14px);
+                -webkit-backdrop-filter: saturate(180%) blur(14px);
+                background: color-mix(in srgb, var(--bg) 75%, transparent);
+                border-bottom: 1px solid var(--border);
+            }
+            .nav {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                height: 64px;
+                gap: 1rem;
+            }
+            .brand {
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                font-weight: 700;
+                letter-spacing: -0.01em;
+                color: var(--fg);
+            }
+            .brand-mark {
+                width: 28px;
+                height: 28px;
+            }
+            .nav-links {
+                display: none;
+                gap: 1.75rem;
+            }
+            .nav-links a {
+                color: var(--fg-muted);
+                font-size: 0.92rem;
+                font-weight: 500;
+            }
+            .nav-links a:hover {
+                color: var(--fg);
+            }
+            .nav-actions {
+                display: flex;
+                align-items: center;
+                gap: 0.4rem;
+            }
+            .icon-btn {
+                width: 38px;
+                height: 38px;
+                display: grid;
+                place-items: center;
+                border-radius: 10px;
+                color: var(--fg-muted);
+                transition: all var(--t);
+            }
+            .icon-btn:hover {
+                background: var(--surface-2);
+                color: var(--fg);
+            }
+            .icon-btn svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            @media (min-width: 760px) {
+                .nav-links {
+                    display: flex;
+                }
+            }
+
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.7rem 1.1rem;
+                border-radius: 999px;
+                font-weight: 600;
+                font-size: 0.95rem;
+                transition: all var(--t);
+                white-space: nowrap;
+            }
+            .btn-primary {
+                background: var(--fg);
+                color: var(--bg);
+            }
+            .btn-primary:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 8px 24px -8px var(--accent);
+            }
+            .btn-ghost {
+                border: 1px solid var(--border);
+                color: var(--fg);
+            }
+            .btn-ghost:hover {
+                background: var(--surface-2);
+            }
+
+            main {
+                padding-bottom: 5rem;
+            }
+            section {
+                padding: 4rem 0;
+                scroll-margin-top: 80px;
+            }
+            section h2 {
+                font-size: clamp(1.6rem, 3.6vw, 2.4rem);
+                font-weight: 800;
+                letter-spacing: -0.02em;
+                line-height: 1.15;
+                margin-bottom: 0.75rem;
+            }
+            section .lede {
+                color: var(--fg-muted);
+                font-size: 1.05rem;
+                max-width: 60ch;
+                margin-bottom: 2.5rem;
+            }
+
+            .eyebrow {
+                display: inline-block;
+                font-size: 0.78rem;
+                font-weight: 600;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                color: var(--accent);
+                margin-bottom: 1rem;
+            }
+
+            .hero {
+                padding: 5rem 0 3rem;
+                position: relative;
+            }
+            .hero h1 {
+                font-size: clamp(2.2rem, 6vw, 4.2rem);
+                font-weight: 800;
+                letter-spacing: -0.03em;
+                line-height: 1.05;
+                margin-bottom: 1.25rem;
+                max-width: 18ch;
+            }
+            .hero h1 .grad {
+                background: linear-gradient(
+                    120deg,
+                    var(--accent) 0%,
+                    var(--accent-2) 50%,
+                    var(--accent-3) 100%
+                );
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+            }
+            .hero p.lede {
+                font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+                max-width: 55ch;
+            }
+            .hero-cta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+                margin-top: 2rem;
+            }
+            .hero-meta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1.5rem 2.5rem;
+                margin-top: 3rem;
+                padding-top: 2rem;
+                border-top: 1px solid var(--border);
+            }
+            .hero-meta div {
+                font-size: 0.9rem;
+                color: var(--fg-muted);
+            }
+            .hero-meta strong {
+                display: block;
+                color: var(--fg);
+                font-size: 1.4rem;
+                font-weight: 700;
+                letter-spacing: -0.02em;
+                margin-bottom: 0.1rem;
+            }
+
+            .apps-head {
+                display: flex;
+                align-items: end;
+                justify-content: space-between;
+                gap: 1rem;
+                flex-wrap: wrap;
+                margin-bottom: 2rem;
+            }
+            .apps-head p {
+                margin: 0;
+                color: var(--fg-muted);
+            }
+            .apps-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+            }
+            @media (min-width: 680px) {
+                .apps-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+            @media (min-width: 1000px) {
+                .apps-grid {
+                    grid-template-columns: repeat(4, 1fr);
+                }
+            }
+
+            .app-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-lg);
+                padding: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                transition: all var(--t);
+                position: relative;
+                overflow: hidden;
+            }
+            .app-card:hover {
+                border-color: var(--accent);
+                transform: translateY(-2px);
+            }
+            .app-card::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(
+                    80% 60% at 50% 0%,
+                    var(--accent-glow, rgba(139, 92, 246, 0.15)),
+                    transparent 70%
+                );
+                opacity: 0;
+                transition: opacity var(--t);
+                pointer-events: none;
+            }
+            .app-card:hover::before {
+                opacity: 1;
+            }
+            .app-icon {
+                width: 64px;
+                height: 64px;
+                border-radius: 16px;
+                display: grid;
+                place-items: center;
+                background: linear-gradient(
+                    135deg,
+                    var(--c1, var(--accent)),
+                    var(--c2, var(--accent-2))
+                );
+                color: #fff;
+                font-weight: 800;
+                font-size: 1.5rem;
+                letter-spacing: -0.02em;
+                box-shadow: 0 8px 24px -8px var(--c1, var(--accent));
+            }
+            .app-card h3 {
+                font-size: 1.15rem;
+                font-weight: 700;
+                letter-spacing: -0.01em;
+            }
+            .app-card .cat {
+                font-size: 0.78rem;
+                color: var(--fg-muted);
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+            }
+            .app-card .desc {
+                color: var(--fg-muted);
+                font-size: 0.92rem;
+                flex: 1;
+            }
+            .app-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.6rem;
+                padding: 0.55rem 0.85rem;
+                border-radius: 10px;
+                background: #000;
+                color: #fff;
+                font-size: 0.82rem;
+                font-weight: 500;
+                align-self: flex-start;
+                transition: transform var(--t);
+            }
+            .app-badge:hover {
+                transform: scale(1.02);
+                color: #fff;
+            }
+            .app-badge svg {
+                width: 18px;
+                height: 18px;
+                flex-shrink: 0;
+            }
+            .app-badge small {
+                display: block;
+                font-size: 0.65rem;
+                opacity: 0.85;
+                line-height: 1;
+            }
+            .app-badge strong {
+                font-size: 0.85rem;
+                font-weight: 500;
+                letter-spacing: 0.01em;
+            }
+
+            .services-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+            }
+            @media (min-width: 680px) {
+                .services-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+            @media (min-width: 1000px) {
+                .services-grid {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+            }
+            .service {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 1.5rem;
+                transition: all var(--t);
+            }
+            .service:hover {
+                border-color: var(--accent);
+            }
+            .service-icon {
+                width: 42px;
+                height: 42px;
+                border-radius: 10px;
+                background: var(--surface-2);
+                display: grid;
+                place-items: center;
+                color: var(--accent);
+                margin-bottom: 1rem;
+            }
+            .service-icon svg {
+                width: 20px;
+                height: 20px;
+            }
+            .service h3 {
+                font-size: 1.05rem;
+                font-weight: 700;
+                margin-bottom: 0.4rem;
+                letter-spacing: -0.01em;
+            }
+            .service p {
+                color: var(--fg-muted);
+                font-size: 0.92rem;
+            }
+
+            .process {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 0;
+                border: 1px solid var(--border);
+                border-radius: var(--radius-lg);
+                overflow: hidden;
+            }
+            @media (min-width: 680px) {
+                .process {
+                    grid-template-columns: repeat(5, 1fr);
+                }
+            }
+            .step {
+                padding: 1.5rem;
+                border-bottom: 1px solid var(--border);
+                position: relative;
+            }
+            @media (min-width: 680px) {
+                .step {
+                    border-bottom: 0;
+                    border-right: 1px solid var(--border);
+                }
+                .step:last-child {
+                    border-right: 0;
+                }
+            }
+            .step:last-child {
+                border-bottom: 0;
+            }
+            .step .n {
+                font-size: 0.75rem;
+                font-weight: 700;
+                color: var(--accent);
+                letter-spacing: 0.1em;
+                margin-bottom: 0.5rem;
+            }
+            .step h4 {
+                font-size: 1rem;
+                font-weight: 700;
+                margin-bottom: 0.3rem;
+                letter-spacing: -0.01em;
+            }
+            .step p {
+                color: var(--fg-muted);
+                font-size: 0.88rem;
+            }
+
+            .blog-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            @media (min-width: 680px) {
+                .blog-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+            .blog-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-lg);
+                padding: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+                transition: all var(--t);
+            }
+            .blog-card:hover {
+                border-color: var(--accent);
+                transform: translateY(-2px);
+            }
+            .blog-card .cat {
+                font-size: 0.78rem;
+                color: var(--fg-muted);
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+            }
+            .blog-card h3 {
+                font-size: 1.1rem;
+                font-weight: 700;
+                letter-spacing: -0.01em;
+                line-height: 1.3;
+            }
+            .blog-card .excerpt {
+                color: var(--fg-muted);
+                font-size: 0.92rem;
+                flex: 1;
+            }
+            .blog-card .date {
+                color: var(--fg-dim);
+                font-size: 0.82rem;
+            }
+            .blog-card .read-more {
+                color: var(--accent);
+                font-weight: 600;
+                font-size: 0.88rem;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                margin-top: 0.25rem;
+            }
+            .blog-card .read-more:hover {
+                color: var(--accent-2);
+                gap: 0.6rem;
+            }
+            .blog-cta {
+                margin-top: 2rem;
+            }
+            .novedades-cta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+                margin-top: 2rem;
+            }
+
+            .about-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+                align-items: center;
+            }
+            @media (min-width: 880px) {
+                .about-grid {
+                    grid-template-columns: 1.1fr 1fr;
+                }
+            }
+            .about-stats {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+                margin-top: 2rem;
+            }
+            .stat {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 1.25rem;
+            }
+            .stat .v {
+                font-size: 1.8rem;
+                font-weight: 800;
+                letter-spacing: -0.02em;
+                background: linear-gradient(
+                    120deg,
+                    var(--accent),
+                    var(--accent-3)
+                );
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+            }
+            .stat .l {
+                font-size: 0.82rem;
+                color: var(--fg-muted);
+                margin-top: 0.2rem;
+            }
+            .orb {
+                aspect-ratio: 1;
+                border-radius: 50%;
+                position: relative;
+                overflow: hidden;
+                background: radial-gradient(
+                    circle at 30% 30%,
+                    #fff 0%,
+                    #c4b5fd 10%,
+                    #8b5cf6 35%,
+                    #4c1d95 70%,
+                    #1e1b4b 100%
+                );
+                box-shadow:
+                    0 30px 80px -20px rgba(139, 92, 246, 0.5),
+                    inset 0 0 80px rgba(0, 0, 0, 0.3);
+                max-width: 380px;
+                margin: 0 auto;
+            }
+            .orb::after {
+                content: "";
+                position: absolute;
+                inset: -20%;
+                border-radius: 50%;
+                background: conic-gradient(
+                    from 0deg,
+                    transparent 0deg,
+                    rgba(236, 72, 153, 0.3) 60deg,
+                    transparent 120deg,
+                    rgba(34, 211, 238, 0.2) 200deg,
+                    transparent 280deg
+                );
+                filter: blur(20px);
+                animation: spin 30s linear infinite;
+            }
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+            @media (prefers-reduced-motion: reduce) {
+                *,
+                *::before,
+                *::after {
+                    animation-duration: 0.01ms !important;
+                    transition-duration: 0.01ms !important;
+                }
+                .orb::after {
+                    animation: none;
+                }
+            }
+
+            .contact {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-lg);
+                padding: 2.5rem;
+                margin-top: 2rem;
+            }
+            @media (min-width: 680px) {
+                .contact {
+                    padding: 3.5rem;
+                }
+            }
+            .contact-form {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+                max-width: 640px;
+            }
+            @media (min-width: 680px) {
+                .contact-form {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                .contact-form .full {
+                    grid-column: 1/-1;
+                }
+            }
+            .field {
+                display: flex;
+                flex-direction: column;
+                gap: 0.4rem;
+            }
+            .field label {
+                font-size: 0.85rem;
+                font-weight: 600;
+                color: var(--fg-muted);
+            }
+            .field input,
+            .field textarea,
+            .field select {
+                background: var(--bg);
+                color: var(--fg);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 0.75rem 0.9rem;
+                font: inherit;
+                transition: all var(--t);
+            }
+            .field input:focus,
+            .field textarea:focus,
+            .field select:focus {
+                outline: none;
+                border-color: var(--accent);
+                box-shadow: 0 0 0 3px
+                    color-mix(in srgb, var(--accent) 20%, transparent);
+            }
+            .field textarea {
+                resize: vertical;
+                min-height: 120px;
+            }
+            .field .hint {
+                font-size: 0.78rem;
+                color: var(--fg-dim);
+            }
+            .contact-form button[type="submit"] {
+                justify-self: start;
+                margin-top: 0.5rem;
+            }
+            .form-note {
+                font-size: 0.82rem;
+                color: var(--fg-dim);
+                margin-top: 1rem;
+                max-width: 60ch;
+            }
+
+            footer {
+                padding: 3rem 0 2rem;
+                border-top: 1px solid var(--border);
+                margin-top: 2rem;
+                color: var(--fg-muted);
+                font-size: 0.9rem;
+            }
+            .foot {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1.5rem;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .foot-links {
+                display: flex;
+                gap: 1.5rem;
+                flex-wrap: wrap;
+            }
+            .foot-links a {
+                color: var(--fg-muted);
+            }
+            .foot-links a:hover {
+                color: var(--fg);
+            }
+
+            html[lang="es"] [lang="en"] {
+                display: none !important;
+            }
+            html[lang="en"] [lang="es"] {
+                display: none !important;
+            }
+        </style>
+    </head>
+    <body>
+        <a class="skip" href="#main">
+            <span lang="es">Saltar al contenido</span>
+            <span lang="en">Skip to content</span>
+        </a>
+
+        <header>
+            <div class="wrap nav">
+                <a
+                    class="brand"
+                    href="/"
+                    aria-label="Nebulosa Estudio — inicio"
+                >
+                    <svg
+                        class="brand-mark"
+                        viewBox="0 0 32 32"
+                        aria-hidden="true"
+                    >
+                        <defs>
+                            <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#8b5cf6" />
+                                <stop offset="50%" stop-color="#ec4899" />
+                                <stop offset="100%" stop-color="#22d3ee" />
+                            </linearGradient>
+                        </defs>
+                        <circle cx="16" cy="16" r="14" fill="url(#bg)" />
+                        <circle
+                            cx="12"
+                            cy="13"
+                            r="2"
+                            fill="#fff"
+                            opacity=".9"
+                        />
+                        <circle
+                            cx="20"
+                            cy="18"
+                            r="1.2"
+                            fill="#fff"
+                            opacity=".7"
+                        />
+                        <circle
+                            cx="18"
+                            cy="11"
+                            r="1"
+                            fill="#fff"
+                            opacity=".6"
+                        />
+                    </svg>
+                    <span>Nebulosa</span>
+                </a>
+
+                <nav class="nav-links" aria-label="Principal">
+                    <a href="#apps"
+                        ><span lang="es">Apps</span
+                        ><span lang="en">Apps</span></a
+                    >
+                    <a href="#services"
+                        ><span lang="es">Servicios</span
+                        ><span lang="en">Services</span></a
+                    >
+                    <a href="#process"
+                        ><span lang="es">Proceso</span
+                        ><span lang="en">Process</span></a
+                    >
+                    <a href="./blog/"
+                        ><span lang="es">Blog</span
+                        ><span lang="en">Blog</span></a
+                    >
+                    <a href="./news/"
+                        ><span lang="es">Noticias</span
+                        ><span lang="en">News</span></a
+                    >
+                    <a href="#about"
+                        ><span lang="es">Estudio</span
+                        ><span lang="en">Studio</span></a
+                    >
+                    <a href="#contact"
+                        ><span lang="es">Contacto</span
+                        ><span lang="en">Contact</span></a
+                    >
+                </nav>
+
+                <div class="nav-actions">
+                    <button
+                        class="icon-btn"
+                        id="lang-toggle"
+                        type="button"
+                        aria-label="Cambiar idioma"
+                        data-label-es="Cambiar idioma"
+                        data-label-en="Switch language"
+                    >
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <circle cx="12" cy="12" r="10" />
+                            <path
+                                d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                            />
+                        </svg>
+                    </button>
+                    <button
+                        class="icon-btn"
+                        id="theme-toggle"
+                        type="button"
+                        aria-label="Cambiar tema"
+                        data-label-es="Cambiar tema"
+                        data-label-en="Switch theme"
+                    >
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                            />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main id="main">
+            <section class="hero">
+                <div class="wrap">
+                    <span class="eyebrow">
+                        <span lang="es">Estudio de aplicaciones móviles</span>
+                        <span lang="en">Mobile application studio</span>
+                    </span>
+                    <h1>
+                        <!--Apps que las personas < quieren tener > en su movil -->
+                        <!-- Aplicaciones que hacen lo que prometen -->
+                        <!-- Apps sencillas que hacen lo que tienen que hacer -->
+                        <span lang="es"
+                            >Apps que  <span class="grad">te hacen </span>
+                            <span>la vida sencilla.  </span
+                        >
+                        <span lang="en"
+                            >Apps people
+                            <span class="grad">want to keep</span> on their
+                            screen.</span
+                        >
+                    </h1>
+                    <p class="lede">
+                        <span lang="es"
+                            >Apps que te ayudan en tu vida diaria. Enfocamos nuestras aplicaciones a mejorar la vida de las personas, sin ruido ni fuegos artifiales . Productos cuidados , código honesto, resultados medibles.</span
+                        >
+                        <span lang="en"
+                            >We design and build mobile apps for iOS and
+                            Android, published on Google Play and the App Store.
+                            Crafted products, honest code, measurable
+                            outcomes.</span
+                        >
+                    </p>
+                    <div class="hero-cta">
+                        <a class="btn btn-primary" href="#apps">
+                            <span lang="es">Ver nuestras apps</span>
+                            <span lang="en">See our apps</span>
+                            <svg
+                                width="14"
+                                height="14"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M5 12h14M13 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                        <a class="btn btn-ghost" href="#contact">
+                            <span lang="es">Hablemos de tu proyecto</span>
+                            <span lang="en">Let's talk about your project</span>
+                        </a>
+                    </div>
+                    <div class="hero-meta">
+                        <div>
+                            <strong>12+</strong>
+                            <span lang="es">apps publicadas</span>
+                            <span lang="en">apps shipped</span>
+                        </div>
+                        <div>
+                            <strong>2M+</strong>
+                            <span lang="es">descargas acumuladas</span>
+                            <span lang="en">lifetime downloads</span>
+                        </div>
+                        <div>
+                            <strong>4.7★</strong>
+                            <span lang="es">rating promedio en Play Store</span>
+                            <span lang="en">average Play Store rating</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="apps">
+                <div class="wrap">
+                    <div class="apps-head">
+                        <div>
+                            <span class="eyebrow">
+                                <span lang="es">Portfolio</span>
+                                <span lang="en">Portfolio</span>
+                            </span>
+                            <h2>
+                                <span lang="es">Apps en producción</span>
+                                <span lang="en">Apps in production</span>
+                            </h2>
+                            <p>
+                                <span lang="es"
+                                    >Una selección de las aplicaciones que hemos
+                                    diseñado, desarrollado y publicado en Google
+                                    Play.</span
+                                >
+                                <span lang="en"
+                                    >A selection of the apps we've designed,
+                                    built, and shipped to Google Play.</span
+                                >
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="apps-grid">
+                        <article
+                            class="app-card"
+                            style="
+                                --c1: #8b5cf6;
+                                --c2: #ec4899;
+                                --accent-glow: rgba(139, 92, 246, 0.18);
+                            "
+                        >
+                            <div class="app-icon" aria-hidden="true">P</div>
+                            <div>
+                                <div class="cat">
+                                    <span lang="es">Salud y fitness</span
+                                    ><span lang="en">Health &amp; fitness</span>
+                                </div>
+                                <h3>Pulse</h3>
+                                <p class="desc">
+                                    <span lang="es"
+                                        >Entrenador personal minimalista con
+                                        planes adaptativos y seguimiento
+                                        offline.</span
+                                    >
+                                    <span lang="en"
+                                        >Minimalist personal trainer with
+                                        adaptive plans and offline
+                                        tracking.</span
+                                    >
+                                </p>
+                            </div>
+                            <!-- TODO: replace href with the real Play Store URL -->
+                            <a
+                                class="app-badge"
+                                href="https://play.google.com/store/apps/details?id=app.nebulosa.pulse"
+                                rel="noopener"
+                                target="_blank"
+                                aria-label="Pulse en Google Play"
+                            >
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M3.6 2.3c-.4.4-.6 1-.6 1.7v16c0 .7.2 1.3.6 1.7l.1.1L13 12 3.7 2.2l-.1.1zm10.4 10.4 2.6 2.6-9.5 5.4 6.9-8zm0-1.4L7.1 3.3l9.5 5.4-2.6 2.6zm6.2-1.4-2.5-1.4-3 3 3 3 2.5-1.4c1-.6 1-2.2 0-2.8z"
+                                    />
+                                </svg>
+                                <span
+                                    ><small
+                                        ><span lang="es">Descargar en</span
+                                        ><span lang="en">Get it on</span></small
+                                    ><strong>Google Play</strong></span
+                                >
+                            </a>
+                        </article>
+
+                        <article
+                            class="app-card"
+                            style="
+                                --c1: #22d3ee;
+                                --c2: #3b82f6;
+                                --accent-glow: rgba(34, 211, 238, 0.18);
+                            "
+                        >
+                            <div class="app-icon" aria-hidden="true">V</div>
+                            <div>
+                                <div class="cat">
+                                    <span lang="es">Productividad</span
+                                    ><span lang="en">Productivity</span>
+                                </div>
+                                <h3>Verso</h3>
+                                <p class="desc">
+                                    <span lang="es"
+                                        >Diario de lectura con seguimiento de
+                                        hábitos, citas y sincronización
+                                        cifrada.</span
+                                    >
+                                    <span lang="en"
+                                        >Reading journal with habit tracking,
+                                        quotes, and encrypted sync.</span
+                                    >
+                                </p>
+                            </div>
+                            <!-- TODO: replace href with the real Play Store URL -->
+                            <a
+                                class="app-badge"
+                                href="https://play.google.com/store/apps/details?id=app.nebulosa.verso"
+                                rel="noopener"
+                                target="_blank"
+                                aria-label="Verso en Google Play"
+                            >
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M3.6 2.3c-.4.4-.6 1-.6 1.7v16c0 .7.2 1.3.6 1.7l.1.1L13 12 3.7 2.2l-.1.1zm10.4 10.4 2.6 2.6-9.5 5.4 6.9-8zm0-1.4L7.1 3.3l9.5 5.4-2.6 2.6zm6.2-1.4-2.5-1.4-3 3 3 3 2.5-1.4c1-.6 1-2.2 0-2.8z"
+                                    />
+                                </svg>
+                                <span
+                                    ><small
+                                        ><span lang="es">Descargar en</span
+                                        ><span lang="en">Get it on</span></small
+                                    ><strong>Google Play</strong></span
+                                >
+                            </a>
+                        </article>
+
+                        <article
+                            class="app-card"
+                            style="
+                                --c1: #f59e0b;
+                                --c2: #ef4444;
+                                --accent-glow: rgba(245, 158, 11, 0.18);
+                            "
+                        >
+                            <div class="app-icon" aria-hidden="true">D</div>
+                            <div>
+                                <div class="cat">
+                                    <span lang="es">Viajes</span
+                                    ><span lang="en">Travel</span>
+                                </div>
+                                <h3>Drift</h3>
+                                <p class="desc">
+                                    <span lang="es"
+                                        >Compañero de viaje con mapas offline,
+                                        diario geolocalizado y conversor de
+                                        divisas.</span
+                                    >
+                                    <span lang="en"
+                                        >Travel companion with offline maps,
+                                        geo-tagged journal, and currency
+                                        converter.</span
+                                    >
+                                </p>
+                            </div>
+                            <!-- TODO: replace href with the real Play Store URL -->
+                            <a
+                                class="app-badge"
+                                href="https://play.google.com/store/apps/details?id=app.nebulosa.drift"
+                                rel="noopener"
+                                target="_blank"
+                                aria-label="Drift en Google Play"
+                            >
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M3.6 2.3c-.4.4-.6 1-.6 1.7v16c0 .7.2 1.3.6 1.7l.1.1L13 12 3.7 2.2l-.1.1zm10.4 10.4 2.6 2.6-9.5 5.4 6.9-8zm0-1.4L7.1 3.3l9.5 5.4-2.6 2.6zm6.2-1.4-2.5-1.4-3 3 3 3 2.5-1.4c1-.6 1-2.2 0-2.8z"
+                                    />
+                                </svg>
+                                <span
+                                    ><small
+                                        ><span lang="es">Descargar en</span
+                                        ><span lang="en">Get it on</span></small
+                                    ><strong>Google Play</strong></span
+                                >
+                            </a>
+                        </article>
+
+                        <article
+                            class="app-card"
+                            style="
+                                --c1: #10b981;
+                                --c2: #22d3ee;
+                                --accent-glow: rgba(16, 185, 129, 0.18);
+                            "
+                        >
+                            <div class="app-icon" aria-hidden="true">L</div>
+                            <div>
+                                <div class="cat">
+                                    <span lang="es">Hogar inteligente</span
+                                    ><span lang="en">Smart home</span>
+                                </div>
+                                <h3>Lumen</h3>
+                                <p class="desc">
+                                    <span lang="es"
+                                        >Control de iluminación y escenas para
+                                        el hogar, sin nubes, sin cuentas.</span
+                                    >
+                                    <span lang="en"
+                                        >Home lighting and scene control, no
+                                        cloud, no accounts.</span
+                                    >
+                                </p>
+                            </div>
+                            <!-- TODO: replace href with the real Play Store URL -->
+                            <a
+                                class="app-badge"
+                                href="https://play.google.com/store/apps/details?id=app.nebulosa.lumen"
+                                rel="noopener"
+                                target="_blank"
+                                aria-label="Lumen en Google Play"
+                            >
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M3.6 2.3c-.4.4-.6 1-.6 1.7v16c0 .7.2 1.3.6 1.7l.1.1L13 12 3.7 2.2l-.1.1zm10.4 10.4 2.6 2.6-9.5 5.4 6.9-8zm0-1.4L7.1 3.3l9.5 5.4-2.6 2.6zm6.2-1.4-2.5-1.4-3 3 3 3 2.5-1.4c1-.6 1-2.2 0-2.8z"
+                                    />
+                                </svg>
+                                <span
+                                    ><small
+                                        ><span lang="es">Descargar en</span
+                                        ><span lang="en">Get it on</span></small
+                                    ><strong>Google Play</strong></span
+                                >
+                            </a>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section id="services">
+                <div class="wrap">
+                    <span class="eyebrow">
+                        <span lang="es">Qué hacemos</span>
+                        <span lang="en">What we do</span>
+                    </span>
+                    <h2>
+                        <span lang="es">Servicios</span>
+                        <span lang="en">Services</span>
+                    </h2>
+                    <p class="lede">
+                        <span lang="es"
+                            >Cubrimos el ciclo completo de producto, desde la
+                            primera idea hasta el crecimiento
+                            post-lanzamiento.</span
+                        >
+                        <span lang="en"
+                            >We cover the full product lifecycle, from the first
+                            idea through post-launch growth.</span
+                        >
+                    </p>
+
+                    <div class="services-grid">
+                        <div class="service">
+                            <div class="service-icon">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <rect
+                                        x="5"
+                                        y="2"
+                                        width="14"
+                                        height="20"
+                                        rx="2"
+                                    />
+                                    <path d="M12 18h.01" />
+                                </svg>
+                            </div>
+                            <h3>
+                                <span lang="es">Desarrollo iOS y Android</span
+                                ><span lang="en"
+                                    >iOS &amp; Android development</span
+                                >
+                            </h3>
+                            <p>
+                                <span lang="es"
+                                    >Apps nativas en Swift y Kotlin, optimizadas
+                                    para cada plataforma.</span
+                                ><span lang="en"
+                                    >Native apps in Swift and Kotlin, optimized
+                                    for each platform.</span
+                                >
+                            </p>
+                        </div>
+                        <div class="service">
+                            <div class="service-icon">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <path d="M12 2 2 7l10 5 10-5-10-5z" />
+                                    <path d="m2 17 10 5 10-5M2 12l10 5 10-5" />
+                                </svg>
+                            </div>
+                            <h3>
+                                <span lang="es">Cross-platform</span
+                                ><span lang="en">Cross-platform</span>
+                            </h3>
+                            <p>
+                                <span lang="es"
+                                    >React Native y Flutter cuando el
+                                    time-to-market es la prioridad.</span
+                                ><span lang="en"
+                                    >React Native and Flutter when
+                                    time-to-market is the priority.</span
+                                >
+                            </p>
+                        </div>
+                        <div class="service">
+                            <div class="service-icon">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <path d="M3 3h18v18H3z" />
+                                    <path d="M3 9h18M9 21V9" />
+                                </svg>
+                            </div>
+                            <h3>
+                                <span lang="es">Diseño UX/UI</span
+                                ><span lang="en">UX/UI design</span>
+                            </h3>
+                            <p>
+                                <span lang="es"
+                                    >Sistemas de diseño, prototipado y tests con
+                                    usuarios antes de escribir código.</span
+                                ><span lang="en"
+                                    >Design systems, prototyping, and user
+                                    testing before a line of code.</span
+                                >
+                            </p>
+                        </div>
+                        <div class="service">
+                            <div class="service-icon">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <path d="M3 3v18h18" />
+                                    <path d="m7 14 4-4 4 4 5-5" />
+                                </svg>
+                            </div>
+                            <h3>
+                                <span lang="es">ASO y crecimiento</span
+                                ><span lang="en">ASO &amp; growth</span>
+                            </h3>
+                            <p>
+                                <span lang="es"
+                                    >Optimización para Google Play, funnels de
+                                    instalación y A/B testing.</span
+                                ><span lang="en"
+                                    >Google Play optimization, install funnels,
+                                    and A/B testing.</span
+                                >
+                            </p>
+                        </div>
+                        <div class="service">
+                            <div class="service-icon">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9c1.66 0 3-4.03 3-9s-1.34-9-3-9m0 18c-1.66 0-3-4.03-3-9s1.34-9 3-9m-9 9a9 9 0 0 1 9-9"
+                                    />
+                                </svg>
+                            </div>
+                            <h3>
+                                <span lang="es">Backend y APIs</span
+                                ><span lang="en">Backend &amp; APIs</span>
+                            </h3>
+                            <p>
+                                <span lang="es"
+                                    >Servicios en la nube, autenticación,
+                                    sincronización y notificaciones push.</span
+                                ><span lang="en"
+                                    >Cloud services, auth, sync, and push
+                                    notifications.</span
+                                >
+                            </p>
+                        </div>
+                        <div class="service">
+                            <div class="service-icon">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"
+                                    />
+                                </svg>
+                            </div>
+                            <h3>
+                                <span lang="es">Mantenimiento</span
+                                ><span lang="en">Maintenance</span>
+                            </h3>
+                            <p>
+                                <span lang="es"
+                                    >Soporte continuo, actualizaciones,
+                                    monitorización y mejora tras el
+                                    lanzamiento.</span
+                                ><span lang="en"
+                                    >Ongoing support, updates, monitoring, and
+                                    post-launch iteration.</span
+                                >
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="process">
+                <div class="wrap">
+                    <span class="eyebrow">
+                        <span lang="es">Cómo trabajamos</span>
+                        <span lang="en">How we work</span>
+                    </span>
+                    <h2>
+                        <span lang="es">Proceso</span>
+                        <span lang="en">Process</span>
+                    </h2>
+                    <p class="lede">
+                        <span lang="es"
+                            >Ciclos cortos, entregas semanales, decisiones
+                            informadas por datos.</span
+                        >
+                        <span lang="en"
+                            >Short cycles, weekly deliveries, decisions backed
+                            by data.</span
+                        >
+                    </p>
+
+                    <div class="process">
+                        <div class="step">
+                            <div class="n">01</div>
+                            <h4>
+                                <span lang="es">Descubrimiento</span
+                                ><span lang="en">Discovery</span>
+                            </h4>
+                            <p>
+                                <span lang="es"
+                                    >Definimos problema, usuario y métricas de
+                                    éxito.</span
+                                ><span lang="en"
+                                    >Problem, user, and success metrics.</span
+                                >
+                            </p>
+                        </div>
+                        <div class="step">
+                            <div class="n">02</div>
+                            <h4>
+                                <span lang="es">Diseño</span
+                                ><span lang="en">Design</span>
+                            </h4>
+                            <p>
+                                <span lang="es"
+                                    >Wireframes, prototipos y validación con
+                                    usuarios.</span
+                                ><span lang="en"
+                                    >Wireframes, prototypes, user testing.</span
+                                >
+                            </p>
+                        </div>
+                        <div class="step">
+                            <div class="n">03</div>
+                            <h4>
+                                <span lang="es">Desarrollo</span
+                                ><span lang="en">Build</span>
+                            </h4>
+                            <p>
+                                <span lang="es"
+                                    >Sprints quincenales con demos en
+                                    vivo.</span
+                                ><span lang="en"
+                                    >Two-week sprints with live demos.</span
+                                >
+                            </p>
+                        </div>
+                        <div class="step">
+                            <div class="n">04</div>
+                            <h4>
+                                <span lang="es">Lanzamiento</span
+                                ><span lang="en">Launch</span>
+                            </h4>
+                            <p>
+                                <span lang="es"
+                                    >Publicación en Google Play, monitorización
+                                    y ASO inicial.</span
+                                ><span lang="en"
+                                    >Play Store release, monitoring, initial
+                                    ASO.</span
+                                >
+                            </p>
+                        </div>
+                        <div class="step">
+                            <div class="n">05</div>
+                            <h4>
+                                <span lang="es">Crecimiento</span
+                                ><span lang="en">Grow</span>
+                            </h4>
+                            <p>
+                                <span lang="es"
+                                    >Iteración basada en analítica y feedback
+                                    real.</span
+                                ><span lang="en"
+                                    >Iterate on analytics and real
+                                    feedback.</span
+                                >
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="novedades">
+                <div class="wrap">
+                    <span class="eyebrow">
+                        <span lang="es">Novedades</span>
+                        <span lang="en">What's new</span>
+                    </span>
+                    <h2>
+                        <span lang="es">Últimas novedades</span>
+                        <span lang="en">Latest updates</span>
+                    </h2>
+                    <p class="lede">
+                        <span lang="es"
+                            >Artículos, guías y reviews sobre desarrollo de
+                            apps, diseño y el mundo de la tecnología
+                            móvil.</span
+                        >
+                        <span lang="en"
+                            >Articles, guides, and reviews about app
+                            development, design, and mobile tech.</span
+                        >
+                    </p>
+
+                    <div class="blog-grid">
+                        <article class="blog-card">
+                            <div>
+                                <div class="cat">
+                                    <span lang="es">Review</span
+                                    ><span lang="en">Review</span>
+                                </div>
+                                <h3>
+                                    <a
+                                        href="/news/las-mejores-apps-salud-2026.html"
+                                    >
+                                        <span lang="es"
+                                            >Las mejores apps de salud y fitness
+                                            para 2026</span
+                                        >
+                                        <span lang="en"
+                                            >Best health &amp; fitness apps for
+                                            2026</span
+                                        >
+                                    </a>
+                                </h3>
+                            </div>
+                            <p class="excerpt">
+                                <span lang="es"
+                                    >Hemos probado las aplicaciones de salud más
+                                    destacadas del año: entrenamiento,
+                                    meditación, sueño y nutrición.</span
+                                >
+                                <span lang="en"
+                                    >We tested the year's top health apps:
+                                    training, meditation, sleep, and
+                                    nutrition.</span
+                                >
+                            </p>
+                            <div class="date">
+                                <time datetime="2026-06-10"
+                                    >10 junio, 2026</time
+                                >
+                            </div>
+                            <a
+                                class="read-more"
+                                href="/news/las-mejores-apps-salud-2026.html"
+                            >
+                                <span lang="es">Leer noticia</span>
+                                <span lang="en">Read news</span>
+                                <svg
+                                    width="12"
+                                    height="12"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <path d="M5 12h14M13 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </article>
+
+                        <article class="blog-card">
+                            <div>
+                                <div class="cat">
+                                    <span lang="es">Desarrollo</span
+                                    ><span lang="en">Development</span>
+                                </div>
+                                <h3>
+                                    <a
+                                        href="/blog/como-creamos-apps-moviles.html"
+                                    >
+                                        <span lang="es"
+                                            >Cómo creamos apps móviles en
+                                            Nebulosa Estudio</span
+                                        >
+                                        <span lang="en"
+                                            >How we build mobile apps at
+                                            Nebulosa Estudio</span
+                                        >
+                                    </a>
+                                </h3>
+                            </div>
+                            <p class="excerpt">
+                                <span lang="es"
+                                    >Descubre el proceso completo que seguimos
+                                    para diseñar y desarrollar aplicaciones que
+                                    la gente quiere usar.</span
+                                >
+                                <span lang="en"
+                                    >Discover our complete process for designing
+                                    and building apps people want to use.</span
+                                >
+                            </p>
+                            <div class="date">
+                                <time datetime="2026-06-10"
+                                    >10 junio, 2026</time
+                                >
+                            </div>
+                            <a
+                                class="read-more"
+                                href="/blog/como-creamos-apps-moviles.html"
+                            >
+                                <span lang="es">Leer artículo</span>
+                                <span lang="en">Read article</span>
+                                <svg
+                                    width="12"
+                                    height="12"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <path d="M5 12h14M13 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </article>
+                    </div>
+
+                    <div class="novedades-cta">
+                        <a class="btn btn-ghost" href="/blog/">
+                            <span lang="es">Ver blog</span>
+                            <span lang="en">View blog</span>
+                            <svg
+                                width="14"
+                                height="14"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M5 12h14M13 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                        <a class="btn btn-ghost" href="/news/">
+                            <span lang="es">Ver noticias</span>
+                            <span lang="en">View news</span>
+                            <svg
+                                width="14"
+                                height="14"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M5 12h14M13 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about">
+                <div class="wrap">
+                    <div class="about-grid">
+                        <div>
+                            <span class="eyebrow">
+                                <span lang="es">El estudio</span>
+                                <span lang="en">The studio</span>
+                            </span>
+                            <h2>
+                                <span lang="es"
+                                    >Un equipo pequeño, trabajo cuidado.</span
+                                >
+                                <span lang="en"
+                                    >A small team, careful work.</span
+                                >
+                            </h2>
+                            <p class="lede" style="margin-bottom: 1rem">
+                                <span lang="es"
+                                    >Nebulosa Estudio es un estudio
+                                    independiente especializado en productos
+                                    móviles. Trabajamos con clientes que valoran
+                                    el detalle, la honestidad técnica y el largo
+                                    plazo.</span
+                                >
+                                <span lang="en"
+                                    >Nebulosa is an independent studio
+                                    specialized in mobile products. We partner
+                                    with clients who value craft, technical
+                                    honesty, and the long term.</span
+                                >
+                            </p>
+                            <div class="about-stats">
+                                <div class="stat">
+                                    <div class="v">12+</div>
+                                    <div class="l">
+                                        <span lang="es">Apps publicadas</span
+                                        ><span lang="en">Apps shipped</span>
+                                    </div>
+                                </div>
+                                <div class="stat">
+                                    <div class="v">2M+</div>
+                                    <div class="l">
+                                        <span lang="es">Descargas</span
+                                        ><span lang="en">Downloads</span>
+                                    </div>
+                                </div>
+                                <div class="stat">
+                                    <div class="v">4.7★</div>
+                                    <div class="l">
+                                        <span lang="es">Rating medio</span
+                                        ><span lang="en">Avg. rating</span>
+                                    </div>
+                                </div>
+                                <div class="stat">
+                                    <div class="v">8</div>
+                                    <div class="l">
+                                        <span lang="es"
+                                            >Años de experiencia</span
+                                        ><span lang="en"
+                                            >Years of experience</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div aria-hidden="true">
+                            <div class="orb"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact">
+                <div class="wrap">
+                    <div class="contact">
+                        <span class="eyebrow">
+                            <span lang="es">Hablemos</span>
+                            <span lang="en">Get in touch</span>
+                        </span>
+                        <h2>
+                            <span lang="es"
+                                >¿Tienes una idea para una app?</span
+                            >
+                            <span lang="en">Got an app idea?</span>
+                        </h2>
+                        <p class="lede">
+                            <span lang="es"
+                                >Cuéntanos qué quieres construir. Respondemos en
+                                menos de 24 horas hábiles.</span
+                            >
+                            <span lang="en"
+                                >Tell us what you want to build. We reply within
+                                24 business hours.</span
+                            >
+                        </p>
+
+                        <form
+                            class="contact-form"
+                            action="/api/contact"
+                            method="post"
+                            novalidate
+                        >
+                            <div class="field">
+                                <label for="name">
+                                    <span lang="es">Nombre</span
+                                    ><span lang="en">Name</span>
+                                </label>
+                                <input
+                                    id="name"
+                                    name="name"
+                                    type="text"
+                                    autocomplete="name"
+                                    required
+                                    minlength="2"
+                                    maxlength="80"
+                                />
+                            </div>
+                            <div class="field">
+                                <label for="email">
+                                    <span lang="es">Email</span
+                                    ><span lang="en">Email</span>
+                                </label>
+                                <input
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    autocomplete="email"
+                                    required
+                                    maxlength="120"
+                                />
+                            </div>
+                            <div class="field">
+                                <label for="company">
+                                    <span lang="es">Empresa (opcional)</span
+                                    ><span lang="en">Company (optional)</span>
+                                </label>
+                                <input
+                                    id="company"
+                                    name="company"
+                                    type="text"
+                                    autocomplete="organization"
+                                    maxlength="80"
+                                />
+                            </div>
+                            <div class="field">
+                                <label for="budget">
+                                    <span lang="es">Presupuesto estimado</span
+                                    ><span lang="en">Estimated budget</span>
+                                </label>
+                                <select id="budget" name="budget">
+                                    <option value="">
+                                        <span lang="es">Selecciona…</span
+                                        ><span lang="en">Select…</span>
+                                    </option>
+                                    <option value="<10k">&lt; 10.000 €</option>
+                                    <option value="10-30k">
+                                        10.000 – 30.000 €
+                                    </option>
+                                    <option value="30-80k">
+                                        30.000 – 80.000 €
+                                    </option>
+                                    <option value=">80k">&gt; 80.000 €</option>
+                                </select>
+                            </div>
+                            <div class="field full">
+                                <label for="message">
+                                    <span lang="es"
+                                        >Cuéntanos sobre tu proyecto</span
+                                    ><span lang="en"
+                                        >Tell us about your project</span
+                                    >
+                                </label>
+                                <textarea
+                                    id="message"
+                                    name="message"
+                                    required
+                                    minlength="20"
+                                    maxlength="2000"
+                                ></textarea>
+                                <span class="hint">
+                                    <span lang="es"
+                                        >Plataforma, plazos, referencias de apps
+                                        que te gustan…</span
+                                    >
+                                    <span lang="en"
+                                        >Platform, timeline, apps you
+                                        admire…</span
+                                    >
+                                </span>
+                            </div>
+                            <button class="btn btn-primary full" type="submit">
+                                <span lang="es">Enviar mensaje</span
+                                ><span lang="en">Send message</span>
+                                <svg
+                                    width="14"
+                                    height="14"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <path d="M5 12h14M13 5l7 7-7 7" />
+                                </svg>
+                            </button>
+                        </form>
+
+                        <p class="form-note">
+                            <span lang="es"
+                                >Al enviar este formulario aceptas nuestra
+                                política de privacidad. No usamos tus datos para
+                                marketing ni los compartimos con terceros.</span
+                            >
+                            <span lang="en"
+                                >By submitting, you accept our privacy policy.
+                                We never use your data for marketing or share it
+                                with third parties.</span
+                            >
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="wrap foot">
+                <div>© <span id="year">2026</span> Nebulosa Estudio</div>
+                <nav class="foot-links" aria-label="Secundaria">
+                    <a href="mailto:hola@nebulosa.estudio"
+                        >hola@nebulosa.estudio</a
+                    >
+                    <a href="#apps"
+                        ><span lang="es">Apps</span
+                        ><span lang="en">Apps</span></a
+                    >
+                    <a href="/blog/"
+                        ><span lang="es">Blog</span
+                        ><span lang="en">Blog</span></a
+                    >
+                    <a href="/news/"
+                        ><span lang="es">Noticias</span
+                        ><span lang="en">News</span></a
+                    >
+                    <a href="#contact"
+                        ><span lang="es">Contacto</span
+                        ><span lang="en">Contact</span></a
+                    >
+                </nav>
+            </div>
+        </footer>
+
+        <script>
+            /* Theme + language toggle — under 1.5KB, no dependencies */
+            (function () {
+                var html = document.documentElement;
+                var THEME_KEY = "neb-theme";
+                var LANG_KEY = "neb-lang";
+                var order = ["auto", "light", "dark"];
+                var themeBtn = document.getElementById("theme-toggle");
+                var langBtn = document.getElementById("lang-toggle");
+
+                function applyTheme(t) {
+                    if (t === "auto") html.removeAttribute("data-theme");
+                    else html.setAttribute("data-theme", t);
+                }
+                function cycleTheme() {
+                    var cur = html.getAttribute("data-theme") || "auto";
+                    var next = order[(order.indexOf(cur) + 1) % order.length];
+                    applyTheme(next);
+                    try {
+                        localStorage.setItem(THEME_KEY, next);
+                    } catch (e) {}
+                }
+                function toggleLang() {
+                    var cur = html.lang || "es";
+                    var next = cur === "es" ? "en" : "es";
+                    html.lang = next;
+                    try {
+                        localStorage.setItem(LANG_KEY, next);
+                    } catch (e) {}
+                    document.title =
+                        next === "es"
+                            ? "Nebulosa Estudio — Aplicaciones móviles hechas con cuidado"
+                            : "Nebulosa Estudio — Mobile apps crafted with care";
+                }
+
+                themeBtn && themeBtn.addEventListener("click", cycleTheme);
+                langBtn && langBtn.addEventListener("click", toggleLang);
+
+                var y = document.getElementById("year");
+                if (y) y.textContent = new Date().getFullYear();
+            })();
+        </script>
+    </body>
+</html>

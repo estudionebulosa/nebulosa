@@ -1,0 +1,35 @@
+---
+# llms.txt — machine-readable site map for LLM crawlers (llmstxt.org)
+permalink: /llms.txt
+eleventyExcludeFromCollections: true
+---
+# {{ site.name }}
+
+> {{ site.description }}
+
+Sitio: {{ site.url }}
+Idioma principal: español (es-ES), con traducciones propias en inglés (en-US).
+
+## Secciones
+
+- [Noticias (ES)]({{ site.url }}news/): artículos, guías y reviews de {{ site.name }}
+- [News (EN)]({{ site.url }}news/en/): articles, guides and reviews in English
+- [Sitemap XML]({{ site.domain }}{{ site.sitemap }}): todas las URLs con hreflang
+- [RSS]({{ site.domain }}{{ site.rss }}) · [JSON Feed]({{ site.domain }}{{ site.jsonFeed }}): mismos artículos en formato feed
+
+## Artículos en español
+
+{% for item in collections.newsEs %}{% if not item.data.noindex %}- [{{ item.data.title }}]({{ item.data.canonical }}): {{ item.data.description }}{% if item.data.alternates and item.data.alternates.en %}
+  - Versión en inglés: [{{ item.data.title }}]({{ item.data.alternates.en }}){% endif %}
+
+{% endif %}{% endfor %}
+## Articles in English
+
+{% for item in collections.newsEn %}{% if not item.data.noindex %}- [{{ item.data.title }}]({{ item.data.canonical }}): {{ item.data.description }}{% if item.data.alternates and item.data.alternates.es %}
+  - Versión en español: [{{ item.data.title }}]({{ item.data.alternates.es }}){% endif %}
+
+{% endif %}{% endfor %}
+## Contacto
+
+- Email: {{ site.email }}
+- {{ site.social.mastodon }}

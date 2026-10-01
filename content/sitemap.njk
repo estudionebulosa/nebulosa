@@ -1,0 +1,46 @@
+---
+# W3C Sitemap + xhtml:link hreflang alternates — only real pairs.
+# Pairs come from each page's `alternates` (computed per translationKey).
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+{# ── home: honest — no EN sibling, so no alternates ── #}
+  <url>
+    <loc>{{ site.url }}</loc>
+    {% if collections.news.length %}<lastmod>{{ (collections.news[0].data.updatedDate or collections.news[0].data.pubDate) | iso }}</lastmod>{% endif %}
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+{# ── language indexes: always paired ── #}
+{% for entry in [
+  { "loc": site.url + "news/", "alt": { "es": site.url + "news/", "en": site.url + "news/en/" }, "first": collections.newsEs[0] },
+  { "loc": site.url + "news/en/", "alt": { "es": site.url + "news/", "en": site.url + "news/en/" }, "first": collections.newsEn[0] }
+] %}
+  <url>
+    <loc>{{ entry.loc }}</loc>
+    {% if entry.first %}<lastmod>{{ (entry.first.data.updatedDate or entry.first.data.pubDate) | iso }}</lastmod>{% endif %}
+    <xhtml:link rel="alternate" hreflang="es" href="{{ entry.alt.es }}"/>
+    <xhtml:link rel="alternate" hreflang="en" href="{{ entry.alt.en }}"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="{{ entry.alt[site.xDefault or 'es'] }}"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+{% endfor %}
+{# ── articles: hreflang only when a sibling really exists ── #}
+{% for item in collections.news %}{% if not item.data.noindex %}
+  <url>
+    <loc>{{ item.data.canonical }}</loc>
+    <lastmod>{{ (item.data.updatedDate or item.data.pubDate) | iso }}</lastmod>
+    {% if item.data.alternates and item.data.alternates.es and item.data.alternates.en %}
+    <xhtml:link rel="alternate" hreflang="es" href="{{ item.data.alternates.es }}"/>
+    <xhtml:link rel="alternate" hreflang="en" href="{{ item.data.alternates.en }}"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="{{ item.data.xDefaultUrl }}"/>
+    {% endif %}
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+{% endif %}{% endfor %}
+</urlset>

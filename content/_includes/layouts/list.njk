@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="{{ lang or 'es' }}" data-theme="auto"
+      {%- if alternates and alternates.es %} data-alt-es="{{ alternates.es }}"{% endif %}
+      {%- if alternates and alternates.en %} data-alt-en="{{ alternates.en }}"{% endif %}>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="{{ site.themeDark }}" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="{{ site.themeLight }}" media="(prefers-color-scheme: light)" />
+
+    {# ── SEO core ────────────────────────────────────────────── #}
+    <title>{% if listTitle %}{{ listTitle }} · {% endif %}{{ site.name }}</title>
+    <meta name="description" content="{{ description }}" />
+    <meta name="author" content="{{ site.name }}" />
+    <meta name="robots" content="{{ robots }}" />
+    <link rel="canonical" href="{{ canonical }}" />
+    {% if alternates and alternates.es and alternates.en %}
+    <link rel="alternate" hreflang="es" href="{{ alternates.es }}" />
+    <link rel="alternate" hreflang="en" href="{{ alternates.en }}" />
+    <link rel="alternate" hreflang="x-default" href="{{ xDefaultUrl or alternates.es }}" />
+    {% endif %}
+
+    {# ── icons ───────────────────────────────────────────────── #}
+    <link rel="icon" href="{{ site.favicon }}" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="{{ site.appleTouchIcon }}" />
+
+    {# ── feeds & machine discovery (SEO / LLMO) ──────────────── #}
+    <link rel="alternate" type="application/rss+xml" title="{{ site.name }} — Noticias" href="{{ site.rss }}" />
+    <link rel="alternate" type="application/feed+json" title="{{ site.name }} — Noticias" href="{{ site.jsonFeed }}" />
+    <link rel="sitemap" type="application/xml" href="{{ site.sitemap }}" />
+    <link rel="author" href="{{ site.llms }}" />
+
+    {# ── identity / fediverse ────────────────────────────────── #}
+    {% if site.social.mastodon %}<link rel="me" href="{{ site.social.mastodon }}" />
+    {% if fedServer %}<meta name="fed:server" content="{{ fedServer }}" />{% endif %}{% endif %}
+
+    {# ── Open Graph / Twitter (listing flavour) ──────────────── #}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="{{ site.social.siteName }}" />
+    <meta property="og:title" content="{{ listTitle or title }}" />
+    <meta property="og:description" content="{{ description }}" />
+    <meta property="og:url" content="{{ canonical }}" />
+    <meta property="og:image" content="{{ site.ogImage | abs }}" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:locale" content="{{ site.locale }}" />
+    <meta property="og:locale:alternate" content="{{ site.localeAlt }}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="{{ site.social.twitter }}" />
+    <meta name="twitter:title" content="{{ listTitle or title }}" />
+    <meta name="twitter:description" content="{{ description }}" />
+    <meta name="twitter:image" content="{{ site.ogImage | abs }}" />
+
+    {# ── JSON-LD (CollectionPage when generated) ─────────────── #}
+    {% if jsonld %}<script type="application/ld+json">{{ jsonld | safe }}</script>{% endif %}
+
+    {% include "partials/theme-boot.njk" %}
+    <style>
+    {% include "partials/styles.njk" %}
+    </style>
+</head>
+<body>
+    <a class="skip" href="#main">
+        <span lang="es">Saltar al contenido</span>
+        <span lang="en">Skip to content</span>
+    </a>
+
+    {% include "partials/nav.njk" %}
+
+    <main id="main">
+        <div class="wrap">
+            {{ content | safe }}
+        </div>
+    </main>
+
+    {% include "partials/footer.njk" %}
+
+    {% include "partials/toggles.njk" %}
+</body>
+</html>

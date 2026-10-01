@@ -1,0 +1,41 @@
+---
+# JSON Feed v1.1 — generated from the news collection
+permalink: /feed.json
+eleventyExcludeFromCollections: true
+---
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": {{ (site.name + " — Noticias") | json | safe }},
+  "home_page_url": {{ (site.url + "news/") | json | safe }},
+  "feed_url": {{ (site.domain + site.jsonFeed) | json | safe }},
+  "description": {{ site.description | json | safe }},
+  "language": "es",
+  "icon": {{ (site.domain + site.ogImage) | json | safe }},
+  "authors": [
+    { "name": {{ site.name | json | safe }}, "url": {{ site.url | json | safe }} }
+  ],
+  "items": [
+{%- set ns = joiner(",") -%}
+{%- for item in collections.news %}{% if not item.data.noindex %}{{ ns() }}
+    {
+      "id": {{ item.data.canonical | json | safe }},
+      "url": {{ item.data.canonical | json | safe }},
+      "title": {{ item.data.title | json | safe }},
+      "summary": {{ item.data.description | json | safe }},
+      "content_html": {{ item.templateContent | json | safe }},
+      "date_published": {{ item.data.pubDate | isoDT | json | safe }},
+      "date_modified": {{ (item.data.updatedDate or item.data.pubDate) | isoDT | json | safe }},
+{%- if item.data.image %}
+      "image": {{ item.data.image.src | abs | json | safe }},
+      "banner_image": {{ item.data.image.src | abs | json | safe }},
+{%- endif %}
+{%- if item.data.tags and item.data.tags.length %}
+      "tags": {{ item.data.tags | json | safe }},
+{%- endif %}
+{%- if item.data.author and item.data.author.name %}
+      "authors": [{ "name": {{ item.data.author.name | json | safe }}{% if item.data.author.url %}, "url": {{ item.data.author.url | abs | json | safe }}{% endif %} }],
+{%- endif %}
+      "language": {{ item.data.lang | json | safe }}
+    }{% endif %}{% endfor %}
+  ]
+}

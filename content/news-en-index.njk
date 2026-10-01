@@ -1,0 +1,70 @@
+---
+# English news index — generated from the `newsEn` collection.
+layout: layouts/list.njk
+permalink: /news/en/index.html
+canonicalOverride: https://nebulosa.estudio/news/en/
+alternates:
+  es: https://nebulosa.estudio/news/
+  en: https://nebulosa.estudio/news/en/
+lang: en
+title: News
+listTitle: News
+description: "App reviews, guides and news about app development, design and the mobile ecosystem — Nebulosa Estudio."
+newsIndex: /news/en/
+---
+
+<section class="list-head">
+    <span class="eyebrow">
+        <span lang="es">Novedades</span>
+        <span lang="en">What's new</span>
+    </span>
+    <h1>
+        <span lang="es">Noticias</span>
+        <span lang="en">News</span>
+    </h1>
+    <p class="lede">
+        <span lang="es">Artículos, guías y reviews sobre desarrollo de apps, diseño y el mundo de la tecnología móvil.</span>
+        <span lang="en">Articles, guides and reviews about app development, design and mobile tech.</span>
+    </p>
+</section>
+
+<div class="blog-grid">
+    {% set posts = collections.newsEn %}
+    {% if posts.length %}
+        {% for post in posts %}
+        <article class="blog-card">
+            <div>
+                <div class="cat">
+                    {% if post.data.section %}{{ post.data.section }}{% endif %}
+                    {% if post.data.categories %}
+                        {% for c in post.data.categories %} · {{ c }}{% endfor %}
+                    {% endif %}
+                </div>
+                <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+            </div>
+            <p class="excerpt">{{ post.data.description }}</p>
+            <div class="date">
+                <time datetime="{{ post.data.pubDate | iso }}">{{ post.data.pubDate | long(lang) }}</time>
+                {% if post.data.updatedDate %}
+                    ·
+                    <span lang="es">act.</span><span lang="en">upd.</span>
+                    {{ post.data.updatedDate | long(lang) }}
+                {% endif %}
+            </div>
+            <a class="read-more" href="{{ post.url }}">
+                <span lang="es">Leer noticia</span>
+                <span lang="en">Read article</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M13 5l7 7-7 7" />
+                </svg>
+            </a>
+        </article>
+        {% endfor %}
+    {% else %}
+        <div class="empty-state">
+            <span lang="es">Próximamente publicaremos aquí nuestras primeras noticias.</span>
+            <span lang="en">Our first articles will appear here soon.</span>
+        </div>
+    {% endif %}
+</div>

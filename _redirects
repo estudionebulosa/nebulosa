@@ -1,0 +1,11 @@
+# ADR-0002 — /blog se fusiona con /news: 301 permanente
+# Cloudflare Pages lee _redirects desde el directorio de publicación (_site).
+# El build lo copia vía addPassthroughCopy (eleventy.config.js).
+/blog/*  /news/:splat  301
+/blog     /news/       301
+
+# Issue #8 — URLs legadas de los dos news/*.html (artículos duplicados/superados):
+# su contenido está consolidado en documento-pagina-web-para-ias-y-humanos,
+# así que se301 hacia la fuente viva en lugar de dejarlas 404.
+/news/como-escribir-html-para-la-ia.html  /news/documento-pagina-web-para-ias-y-humanos.html  301
+/news/documento-optimizacion-paginas-web-para-motores-de-busqueda-e-inteligencias-artificiales-seo-geo.html  /news/documento-pagina-web-para-ias-y-humanos.html  301

@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Astro v6.4.5"><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"><title>How to Build Lightning-Fast Static Sites in 2026</title><meta name="description" content="Astro sites achieve 98+ PageSpeed scores by shipping zero JavaScript by default."><link rel="canonical" href="https://example.com/blog/hello-world/"><meta property="og:title" content="How to Build Lightning-Fast Static Sites in 2026"><meta property="og:description" content="Astro sites achieve 98+ PageSpeed scores by shipping zero JavaScript by default."><meta property="og:image" content="https://example.com/images/blog/hero.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="675"><meta property="og:url" content="https://example.com/blog/hello-world/"><meta property="og:type" content="article"><meta property="og:site_name" content="Site Name"><meta property="og:locale" content="en_US"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="How to Build Lightning-Fast Static Sites in 2026"><meta name="twitter:description" content="Astro sites achieve 98+ PageSpeed scores by shipping zero JavaScript by default."><meta name="twitter:image" content="https://example.com/images/blog/hero.jpg"><link rel="preload" href="https://example.com/images/blog/hero.jpg" as="image"><link rel="alternate" type="application/rss+xml" title="Site Name RSS" href="/rss.xml"><link rel="stylesheet" href="../_astro/JsonLd.BL1sj7fn.css"></head> <body class="font-sans leading-relaxed text-gray-900 bg-white antialiased">  <main class="max-w-3xl mx-auto px-4 py-12"> <nav aria-label="Breadcrumb" class="text-sm text-gray-500 mb-4"> <ol class="flex items-center gap-2"> <li class="flex items-center">  <a href="/" class="hover:text-blue-600 transition-colors"> Home </a> </li><li class="flex items-center"> <span class="mx-1 text-gray-400">/</span> <a href="/blog/" class="hover:text-blue-600 transition-colors"> Blog </a> </li><li class="flex items-center"> <span class="mx-1 text-gray-400">/</span> <span class="text-gray-900 font-medium" aria-current="page"> How to Build Lightning-Fast Static Sites in 2026 </span> </li> </ol> </nav> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://example.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://example.com/blog/"},{"@type":"ListItem","position":3,"name":"How to Build Lightning-Fast Static Sites in 2026","item":"https://example.com/blog/hello-world/"}]}</script> <article> <header class="mb-8"> <p class="text-sm text-gray-500 mb-2"> <time datetime="2026-06-10T12:00:00+02:00"> June 10, 2026 </time>  · Updated <time datetime="2026-06-10T16:30:00+02:00"> June 10, 2026 </time>  · #astro #performance #seo </p> <h1 class="text-3xl font-bold leading-tight">How to Build Lightning-Fast Static Sites in 2026</h1> <p class="mt-4 text-lg text-gray-600 border-l-4 border-blue-500 pl-4"> <strong>Bottom Line:</strong> Astro sites ship zero JavaScript by default, pre-rendering every page to static HTML with TTFB under 100ms. Combined with AVIF/WebP image optimization and self-hosted fonts, they consistently score 95+ on mobile PageSpeed Insights. </p> </header> <figure class="mb-8 -mx-4 sm:mx-0"> <img src="/images/blog/hero.jpg" alt="Dashboard showing 98 PageSpeed score" width="1200" height="675" class="w-full rounded-lg" loading="eager" fetchpriority="high"> </figure> <div class="prose prose-gray max-w-none"> <h2 id="why-speed-matters-in-2026">Why Speed Matters in 2026</h2>
+<p>Studies show a <strong>40% increase</strong> in AI citation rate when pages load under 200ms. Google’s Core Web Vitals now directly impact search rankings, and AI-powered search engines (ChatGPT, Perplexity, Gemini) prefer fast, well-structured content.</p>
+<h3 id="static-vs-dynamic">Static vs Dynamic</h3>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>TTFB</th>
+<th>JS Bytes</th>
+<th>PageSpeed</th>
+<th>AI Citation Rate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Astro (static)</td>
+<td>&lt; 100ms</td>
+<td>0 KB</td>
+<td>98</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Next.js (SSR)</td>
+<td>~300ms</td>
+<td>150 KB+</td>
+<td>85</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>React SPA</td>
+<td>~500ms</td>
+<td>300 KB+</td>
+<td>60</td>
+<td>Low</td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-optimization-techniques">Key Optimization Techniques</h3>
+<ol>
+<li><strong>Zero JavaScript by default</strong> — No framework runtime shipped to the browser</li>
+<li><strong>AVIF + WebP images</strong> — 50% smaller than JPEG at same quality</li>
+<li><strong>Self-hosted fonts</strong> — Eliminates external CDN blocking (saves ~3s FCP)</li>
+<li><strong>Pre-rendered HTML</strong> — Every page is a static file at build time</li>
+</ol>
+<h2 id="getting-started">Getting Started</h2>
+<p>Building a fast static site with Astro takes minutes:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">pnpm</span><span style="color:#9ECBFF"> create</span><span style="color:#9ECBFF"> astro@latest</span><span style="color:#79B8FF"> --template</span><span style="color:#9ECBFF"> minimal</span></span>
+<span class="line"><span style="color:#B392F0">pnpm</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> @fontsource-variable/inter</span></span>
+<span class="line"><span style="color:#B392F0">pnpm</span><span style="color:#9ECBFF"> astro</span><span style="color:#9ECBFF"> build</span></span></code></pre>
+<p>The result is a <code>dist/</code> folder with pure HTML files ready to deploy to any CDN.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>In 2026, site speed is no longer optional. Astro’s zero-JS architecture makes it the strongest choice for content sites that need to rank well in both traditional search and AI-generated answers.</p>
+ </div> </article> <section class="mt-12 border-t pt-8"> <h2 class="text-2xl font-bold mb-6">Frequently Asked Questions</h2> <div class="space-y-4"> <details class="border rounded-lg p-4 cursor-pointer group"> <summary class="font-medium text-gray-900 group-open:text-blue-600"> What makes Astro faster than Next.js? </summary> <p class="mt-3 text-gray-600 leading-relaxed">Astro ships zero JavaScript by default. Next.js hydrates React on every page. Astro&#39;s static output is pure HTML with no framework runtime, resulting in 80% faster load times.</p> </details><details class="border rounded-lg p-4 cursor-pointer group"> <summary class="font-medium text-gray-900 group-open:text-blue-600"> Can Astro handle dynamic content? </summary> <p class="mt-3 text-gray-600 leading-relaxed">Yes, via client islands. You opt in to interactivity only where needed, keeping the rest of the page static. This gives you the best of both worlds.</p> </details><details class="border rounded-lg p-4 cursor-pointer group"> <summary class="font-medium text-gray-900 group-open:text-blue-600"> What is the best deployment target for Astro? </summary> <p class="mt-3 text-gray-600 leading-relaxed">Cloudflare Pages offers the best global CDN performance with TTFB under 100ms, free tier, and built-in IndexNow support for Bing indexing.</p> </details> </div> </section> <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What makes Astro faster than Next.js?","acceptedAnswer":{"@type":"Answer","text":"Astro ships zero JavaScript by default. Next.js hydrates React on every page. Astro's static output is pure HTML with no framework runtime, resulting in 80% faster load times."}},{"@type":"Question","name":"Can Astro handle dynamic content?","acceptedAnswer":{"@type":"Answer","text":"Yes, via client islands. You opt in to interactivity only where needed, keeping the rest of the page static. This gives you the best of both worlds."}},{"@type":"Question","name":"What is the best deployment target for Astro?","acceptedAnswer":{"@type":"Answer","text":"Cloudflare Pages offers the best global CDN performance with TTFB under 100ms, free tier, and built-in IndexNow support for Bing indexing."}}]}</script> </main> <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"NewsArticle","@id":"https://example.com/blog/hello-world/#article","headline":"How to Build Lightning-Fast Static Sites in 2026","description":"Astro sites achieve 98+ PageSpeed scores by shipping zero JavaScript by default.","image":{"@type":"ImageObject","url":"https://example.com/images/blog/hero.jpg","width":1200,"height":675},"datePublished":"2026-06-10T12:00:00+02:00","dateModified":"2026-06-10T16:30:00+02:00","author":{"@type":"Person","name":"Jane Doe","url":"https://example.com/authors/jane-doe","sameAs":["https://twitter.com/janedoe","https://linkedin.com/in/janedoe"]},"publisher":{"@type":"Organization","name":"Site Name","url":"https://example.com/"},"mainEntityOfPage":"https://example.com/blog/hello-world/","wordCount":227,"isAccessibleForFree":true},{"@type":"Person","@id":"https://example.com/#person","name":"Jane Doe"},{"@type":"Organization","@id":"https://example.com/#organization","name":"Site Name","url":"https://example.com/"},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://example.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://example.com/blog/"},{"@type":"ListItem","position":3,"name":"How to Build Lightning-Fast Static Sites in 2026","item":"https://example.com/blog/hello-world/"}]}]}</script>  </body></html>

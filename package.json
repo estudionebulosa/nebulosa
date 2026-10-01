@@ -1,0 +1,15 @@
+{
+  "name": "nebulosa",
+  "version": "1.0.0",
+  "private": true,
+  "description": "nebulosa.estudio — static site, Eleventy article pipeline",
+  "scripts": {
+    "dev": "eleventy --serve --port=8080",
+    "build": "eleventy",
+    "admin": "NEB_ADMIN=1 eleventy && NEB_ADMIN=1 node tools/admin-server.mjs",
+    "check": "node tools/check-build.mjs"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.2"
+  }
+}

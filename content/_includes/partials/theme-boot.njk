@@ -1,0 +1,11 @@
+<script>
+  /* Theme bootstrap — runs before paint to prevent flash.
+     Language is NOT set here: it comes from the page itself
+     (one file per language, hreflang-accurate — see ADR/lang plan). */
+  (function () {
+    try {
+      var t = localStorage.getItem("neb-theme");
+      if (t) document.documentElement.setAttribute("data-theme", t);
+    } catch (e) {}
+  })();
+</script>

@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="es" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0a0a14" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#fafafc" media="(prefers-color-scheme: light)">
+
+<title>Cómo creamos apps móviles — Proceso de desarrollo · Nebulosa Estudio</title>
+<meta name="description" content="Descubre el proceso de desarrollo de apps móviles en Nebulosa Estudio: descubrimiento, diseño, desarrollo, lanzamiento y crecimiento. Cases prácticos y metodología.">
+<meta name="keywords" content="desarrollo de apps móviles, proceso de desarrollo iOS, cómo crear una app, estudio de apps">
+<meta name="author" content="Nebulosa Estudio">
+<meta name="robots" content="index, follow, max-image-preview:large">
+
+<link rel="canonical" href="https://nebulosa.estudio/blog/como-creamos-apps-moviles.html">
+<link rel="alternate" hreflang="es" href="https://nebulosa.estudio/blog/como-creamos-apps-moviles.html?lang=es">
+<link rel="alternate" hreflang="en" href="https://nebulosa.estudio/blog/como-creamos-apps-moviles.html?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://nebulosa.estudio/blog/como-creamos-apps-moviles.html">
+
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nebulosa Estudio">
+<meta property="og:title" content="Cómo creamos apps móviles — Proceso de desarrollo">
+<meta property="og:description" content="Descubre el proceso que seguimos en Nebulosa Estudio para diseñar y desarrollar aplicaciones móviles que la gente quiere usar.">
+<meta property="og:url" content="https://nebulosa.estudio/blog/como-creamos-apps-moviles.html">
+<meta property="og:image" content="https://nebulosa.estudio/assets/og-image.svg">
+<meta property="og:locale" content="es_ES">
+<meta property="og:locale:alternate" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cómo creamos apps móviles — Proceso de desarrollo">
+<meta name="twitter:description" content="Descubre el proceso que seguimos en Nebulosa Estudio para diseñar y desarrollar aplicaciones móviles que la gente quiere usar.">
+<meta name="twitter:image" content="https://nebulosa.estudio/assets/og-image.svg">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": "https://nebulosa.estudio/blog/como-creamos-apps-moviles.html#post",
+  "mainEntityOfPage": "https://nebulosa.estudio/blog/como-creamos-apps-moviles.html",
+  "headline": "Cómo creamos apps móviles — Proceso de desarrollo",
+  "description": "Descubre el proceso de desarrollo de apps móviles en Nebulosa Estudio: descubrimiento, diseño, desarrollo, lanzamiento y crecimiento.",
+  "image": "https://nebulosa.estudio/assets/og-image.svg",
+  "datePublished": "2026-06-10",
+  "dateModified": "2026-06-10",
+  "author": {
+    "@type": "Organization",
+    "@id": "https://nebulosa.estudio/#org",
+    "name": "Nebulosa Estudio",
+    "url": "https://nebulosa.estudio/"
+  },
+  "publisher": {
+    "@id": "https://nebulosa.estudio/#org"
+  },
+  "inLanguage": ["es-ES", "en-US"]
+}
+</script>
+
+<script>
+(function(){
+  try{
+    var t = localStorage.getItem('neb-theme');
+    var l = localStorage.getItem('neb-lang');
+    if(t) document.documentElement.setAttribute('data-theme', t);
+    if(!l){
+      l = (navigator.language || 'es').slice(0,2).toLowerCase() === 'en' ? 'en' : 'es';
+    }
+    document.documentElement.lang = l;
+  }catch(e){}
+})();
+</script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box}
+*{margin:0}
+
+:root{
+  --bg:#0a0a14;
+  --surface:#11111d;
+  --surface-2:#161628;
+  --border:#22223a;
+  --fg:#e8e8f0;
+  --fg-muted:#8a8aa8;
+  --fg-dim:#5a5a78;
+  --accent:#8b5cf6;
+  --accent-2:#ec4899;
+  --accent-3:#22d3ee;
+  --glow:radial-gradient(60% 80% at 20% 0%,rgba(139,92,246,.18),transparent 60%),radial-gradient(50% 60% at 90% 20%,rgba(34,211,238,.10),transparent 60%);
+  --radius:14px;
+  --radius-lg:22px;
+  --maxw:1120px;
+  --t:180ms cubic-bezier(.2,.7,.2,1);
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#fafafc;
+    --surface:#ffffff;
+    --surface-2:#f3f3f8;
+    --border:#e4e4ee;
+    --fg:#0a0a14;
+    --fg-muted:#5a5a78;
+    --fg-dim:#8a8aa8;
+    --glow:radial-gradient(60% 80% at 20% 0%,rgba(139,92,246,.10),transparent 60%),radial-gradient(50% 60% at 90% 20%,rgba(34,211,238,.06),transparent 60%);
+  }
+}
+:root[data-theme="light"]{
+  --bg:#fafafc;--surface:#ffffff;--surface-2:#f3f3f8;--border:#e4e4ee;
+  --fg:#0a0a14;--fg-muted:#5a5a78;--fg-dim:#8a8aa8;
+  --glow:radial-gradient(60% 80% at 20% 0%,rgba(139,92,246,.10),transparent 60%),radial-gradient(50% 60% at 90% 20%,rgba(34,211,238,.06),transparent 60%);
+}
+:root[data-theme="dark"]{
+  --bg:#0a0a14;--surface:#11111d;--surface-2:#161628;--border:#22223a;
+  --fg:#e8e8f0;--fg-muted:#8a8aa8;--fg-dim:#5a5a78;
+  --glow:radial-gradient(60% 80% at 20% 0%,rgba(139,92,246,.18),transparent 60%),radial-gradient(50% 60% at 90% 20%,rgba(34,211,238,.10),transparent 60%);
+}
+
+html{color-scheme:light dark;background:var(--bg)}
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  min-height:100dvh;
+  background-image:var(--glow);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;display:block;height:auto}
+a{color:var(--accent);text-decoration:none;transition:color var(--t)}
+a:hover{color:var(--accent-2)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+::selection{background:var(--accent);color:#fff}
+
+.skip{
+  position:absolute;left:-9999px;top:0;background:var(--accent);color:#fff;
+  padding:.75rem 1rem;border-radius:0 0 var(--radius) 0;z-index:1000;font-weight:600;
+}
+.skip:focus{left:0}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 1.25rem}
+
+header{
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:saturate(180%) blur(14px);
+  -webkit-backdrop-filter:saturate(180%) blur(14px);
+  background:color-mix(in srgb,var(--bg) 75%,transparent);
+  border-bottom:1px solid var(--border);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:1rem}
+.brand{display:flex;align-items:center;gap:.6rem;font-weight:700;letter-spacing:-.01em;color:var(--fg)}
+.brand-mark{width:28px;height:28px}
+.nav-links{display:flex;gap:1.75rem}
+.nav-links a{color:var(--fg-muted);font-size:.92rem;font-weight:500}
+.nav-links a:hover{color:var(--fg)}
+.nav-links a.current{color:var(--fg)}
+
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;padding:.7rem 1.1rem;border-radius:999px;
+  font-weight:600;font-size:.95rem;transition:all var(--t);white-space:nowrap;
+}
+.btn-primary{background:var(--fg);color:var(--bg)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 24px -8px var(--accent)}
+.btn-ghost{border:1px solid var(--border);color:var(--fg)}
+.btn-ghost:hover{background:var(--surface-2)}
+
+.post-wrap{max-width:720px;margin:0 auto;padding:3rem 1.25rem}
+.post-header{margin-bottom:2.5rem}
+.post-tag{
+  display:inline-block;font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:1rem;
+}
+.post-header h1{
+  font-size:clamp(1.6rem,3.6vw,2.4rem);font-weight:800;letter-spacing:-.02em;line-height:1.2;
+  margin-bottom:.75rem;
+}
+.post-meta{color:var(--fg-dim);font-size:.88rem;display:flex;gap:.75rem;flex-wrap:wrap}
+.post-meta span{display:inline-flex;align-items:center;gap:.35rem}
+
+.post-body{font-size:1.05rem;line-height:1.75;color:var(--fg)}
+.post-body p{margin-bottom:1.5rem}
+.post-body h2{
+  font-size:1.4rem;font-weight:700;letter-spacing:-.01em;margin:2.5rem 0 .75rem;
+  padding-bottom:.5rem;border-bottom:1px solid var(--border);
+}
+.post-body h3{font-size:1.15rem;font-weight:700;margin:2rem 0 .5rem}
+.post-body ul,.post-body ol{padding-left:1.5rem;margin-bottom:1.5rem}
+.post-body li{margin-bottom:.5rem}
+.post-body strong{font-weight:600}
+.post-body blockquote{
+  border-left:3px solid var(--accent);padding:.75rem 1.25rem;margin-bottom:1.5rem;
+  background:var(--surface);border-radius:0 var(--radius) var(--radius) 0;color:var(--fg-muted);
+}
+.post-foot{margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center}
+
+footer{padding:3rem 0 2rem;border-top:1px solid var(--border);margin-top:2rem;color:var(--fg-muted);font-size:.9rem}
+.foot{display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:space-between;align-items:center}
+.foot-links{display:flex;gap:1.5rem;flex-wrap:wrap}
+.foot-links a{color:var(--fg-muted)}.foot-links a:hover{color:var(--fg)}
+
+html[lang="es"] [lang="en"]{display:none!important}
+html[lang="en"] [lang="es"]{display:none!important}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#post">
+  <span lang="es">Saltar al contenido</span>
+  <span lang="en">Skip to content</span>
+</a>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="/" aria-label="Nebulosa Estudio — inicio">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <defs>
+          <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#8b5cf6"/>
+            <stop offset="50%" stop-color="#ec4899"/>
+            <stop offset="100%" stop-color="#22d3ee"/>
+          </linearGradient>
+        </defs>
+        <circle cx="16" cy="16" r="14" fill="url(#bg)"/>
+        <circle cx="12" cy="13" r="2" fill="#fff" opacity=".9"/>
+        <circle cx="20" cy="18" r="1.2" fill="#fff" opacity=".7"/>
+        <circle cx="18" cy="11" r="1" fill="#fff" opacity=".6"/>
+      </svg>
+      <span>Nebulosa</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Principal">
+      <a href="/#apps"><span lang="es">Apps</span><span lang="en">Apps</span></a>
+      <a href="/#services"><span lang="es">Servicios</span><span lang="en">Services</span></a>
+      <a href="/#process"><span lang="es">Proceso</span><span lang="en">Process</span></a>
+      <a href="/blog/" class="current"><span lang="es">Blog</span><span lang="en">Blog</span></a>
+      <a href="/news/"><span lang="es">Noticias</span><span lang="en">News</span></a>
+      <a href="/#about"><span lang="es">Estudio</span><span lang="en">Studio</span></a>
+      <a href="/#contact"><span lang="es">Contacto</span><span lang="en">Contact</span></a>
+    </nav>
+  </div>
+</header>
+
+<main id="post">
+  <article class="post-wrap">
+    <header class="post-header">
+      <div class="post-tag">
+        <span lang="es">Desarrollo</span>
+        <span lang="en">Development</span>
+      </div>
+      <h1>
+        <span lang="es">Cómo creamos apps móviles en Nebulosa Estudio</span>
+        <span lang="en">How we build mobile apps at Nebulosa Estudio</span>
+      </h1>
+      <div class="post-meta">
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          <time datetime="2026-06-10">10 junio, 2026</time>
+        </span>
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span lang="es">5 min de lectura</span>
+          <span lang="en">5 min read</span>
+        </span>
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      <p>
+        <span lang="es">En Nebulosa Estudio creemos que una buena app no empieza en el código, empieza en el problema. Llevamos más de 8 años diseñando y desarrollando aplicaciones móviles para iOS y Android, y en ese tiempo hemos refinado un proceso que pone el foco en lo que realmente importa: que la aplicación resuelva un problema real y que la gente quiera usarla.</span>
+        <span lang="en">At Nebulosa Estudio we believe a great app doesn't start with code — it starts with the problem. We've spent over 8 years designing and building mobile apps for iOS and Android, and during that time we've refined a process that focuses on what really matters: solving real problems and creating apps people want to use.</span>
+      </p>
+
+      <h2>
+        <span lang="es">1. Descubrimiento: entender antes de construir</span>
+        <span lang="en">1. Discovery: understand before building</span>
+      </h2>
+      <p>
+        <span lang="es">Todo proyecto comienza con una fase de descubrimiento. Nos sentamos con el cliente —o con nuestro propio equipo— y respondemos tres preguntas fundamentales: ¿qué problema resolvemos?, ¿para quién?, ¿cómo medimos el éxito? Sin unas métricas claras desde el día uno, es imposible saber si el producto funciona.</span>
+        <span lang="en">Every project starts with a discovery phase. We sit down with the client — or with our own team — and answer three fundamental questions: what problem are we solving, who are we solving it for, and how do we measure success? Without clear metrics from day one, it's impossible to know if the product works.</span>
+      </p>
+      <p>
+        <span lang="es">En esta fase entregamos un documento de producto con la visión, los objetivos, el público objetivo y un primer backlog priorizado. También investigamos el mercado: ¿hay apps competidoras? ¿qué hacen bien? ¿qué hueco podemos ocupar?</span>
+        <span lang="en">In this phase we deliver a product document with the vision, goals, target audience, and a first prioritized backlog. We also research the market: are there competing apps? What do they do well? What gap can we fill?</span>
+      </p>
+
+      <h2>
+        <span lang="es">2. Diseño: prototipar, testear, iterar</span>
+        <span lang="en">2. Design: prototype, test, iterate</span>
+      </h2>
+      <p>
+        <span lang="es">Pasamos a diseñar la experiencia. Empezamos con wireframes de baja fidelidad para validar el flujo de navegación, y luego subimos a prototipos interactivos en Figma. Antes de escribir una sola línea de código, probamos esos prototipos con usuarios reales.</span>
+        <span lang="en">We move on to designing the experience. We start with low-fidelity wireframes to validate the navigation flow, then move up to interactive prototypes in Figma. Before writing a single line of code, we test those prototypes with real users.</span>
+      </p>
+      <p>
+        <span lang="es">Esta etapa nos ahorra meses de retrabajo. Es mucho más barato cambiar un prototipo que cambiar código en producción. El resultado es un sistema de diseño completo: colores, tipografía, componentes y pantallas clave listas para desarrollo.</span>
+        <span lang="en">This stage saves us months of rework. It's much cheaper to change a prototype than to change production code. The result is a complete design system: colors, typography, components, and key screens ready for development.</span>
+      </p>
+
+      <h2>
+        <span lang="es">3. Desarrollo: sprints, demos, transparencia</span>
+        <span lang="en">3. Build: sprints, demos, transparency</span>
+      </h2>
+      <p>
+        <span lang="es">Trabajamos en sprints de dos semanas con entregas continuas. Cada sprint termina con una demo en vivo donde enseñamos lo construido, recogemos feedback y ajustamos lo que toque. Usamos Swift y Kotlin para apps nativas, y React Native o Flutter cuando la prioridad es el time-to-market.</span>
+        <span lang="en">We work in two-week sprints with continuous delivery. Each sprint ends with a live demo where we show what was built, collect feedback, and adjust as needed. We use Swift and Kotlin for native apps, and React Native or Flutter when time-to-market is the priority.</span>
+      </p>
+      <p>
+        <span lang="es">El código sigue estándares estrictos: revisión por pares, tests automatizados, integración continua. No publicamos nada que no esté probado.</span>
+        <span lang="en">Our code follows strict standards: peer review, automated tests, continuous integration. We never ship anything that hasn't been tested.</span>
+      </p>
+
+      <h2>
+        <span lang="es">4. Lanzamiento: más que subir a la tienda</span>
+        <span lang="en">4. Launch: more than just publishing</span>
+      </h2>
+      <p>
+        <span lang="es">Publicar en Google Play y App Store es solo el principio. Antes del lanzamiento optimizamos la ficha de la app (ASO) con keywords, capturas de pantalla y descripciones pensadas para convertir. Configuramos monitorización con herramientas como Sentry y Firebase Crashlytics para detectar problemas antes de que los usuarios los reporten.</span>
+        <span lang="en">Publishing on Google Play and the App Store is just the beginning. Before launch we optimize the app listing (ASO) with keywords, screenshots, and descriptions designed to convert. We set up monitoring with tools like Sentry and Firebase Crashlytics to catch issues before users report them.</span>
+      </p>
+
+      <h2>
+        <span lang="es">5. Crecimiento: iterar con datos</span>
+        <span lang="en">5. Growth: iterate with data</span>
+      </h2>
+      <p>
+        <span lang="es">Una app viva es una app que mejora. Analizamos las métricas de uso, las reseñas de los usuarios y los datos de retención para priorizar las siguientes versiones. Cada actualización busca mejorar una métrica concreta: retención a 7 días, tasa de conversión, o tiempo de sesión.</span>
+        <span lang="en">A living app is an app that keeps improving. We analyze usage metrics, user reviews, and retention data to prioritize the next releases. Every update targets a specific metric: 7-day retention, conversion rate, or session time.</span>
+      </p>
+
+      <blockquote>
+        <span lang="es">"El 80% del éxito de una app se decide antes de escribir la primera línea de código."</span>
+        <span lang="en">"80% of an app's success is decided before the first line of code is written."</span>
+      </blockquote>
+
+      <p>
+        <span lang="es">Ese es nuestro enfoque. Si tienes una idea para una app y quieres que te ayudemos a llevarla a cabo, estaremos encantados de hablar contigo.</span>
+        <span lang="en">That's our approach. If you have an app idea and want us to help bring it to life, we'd love to hear from you.</span>
+      </p>
+
+    </div>
+
+    <footer class="post-foot">
+      <a class="btn btn-ghost" href="/blog/">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span lang="es">Volver al blog</span>
+        <span lang="en">Back to blog</span>
+      </a>
+      <a class="btn btn-primary" href="/#contact">
+        <span lang="es">Hablemos de tu proyecto</span>
+        <span lang="en">Let's talk about your project</span>
+      </a>
+    </footer>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>© <span id="year">2026</span> Nebulosa Estudio</div>
+    <nav class="foot-links" aria-label="Secundaria">
+      <a href="mailto:hola@nebulosa.estudio">hola@nebulosa.estudio</a>
+      <a href="/blog/"><span lang="es">Blog</span><span lang="en">Blog</span></a>
+      <a href="/news/"><span lang="es">Noticias</span><span lang="en">News</span></a>
+      <a href="/#contact"><span lang="es">Contacto</span><span lang="en">Contact</span></a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var html = document.documentElement;
+  var LANG_KEY = 'neb-lang';
+  var y = document.getElementById('year');
+  if(y) y.textContent = new Date().getFullYear();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+---
+permalink: /site.webmanifest
+eleventyExcludeFromCollections: true
+---
+{
+  "name": {{ site.name | json | safe }},
+  "short_name": "Nebulosa",
+  "description": {{ site.description | json | safe }},
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": {{ site.themeDark | json | safe }},
+  "theme_color": {{ site.themeDark | json | safe }},
+  "lang": {{ site.language | json | safe }},
+  "icons": [
+    {
+      "src": {{ site.appleTouchIcon | json | safe }},
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": {{ site.favicon | json | safe }},
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://nebulosa.estudio/</loc>
+    <lastmod>2026-06-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nebulosa.estudio/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nebulosa.estudio/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nebulosa.estudio/"/>
+  </url>
+  <url>
+    <loc>https://nebulosa.estudio/blog/</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nebulosa.estudio/blog/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nebulosa.estudio/blog/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nebulosa.estudio/blog/"/>
+  </url>
+  <url>
+    <loc>https://nebulosa.estudio/blog/como-creamos-apps-moviles.html</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nebulosa.estudio/blog/como-creamos-apps-moviles.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nebulosa.estudio/blog/como-creamos-apps-moviles.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nebulosa.estudio/blog/como-creamos-apps-moviles.html"/>
+  </url>
+  <url>
+    <loc>https://nebulosa.estudio/news/</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nebulosa.estudio/news/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nebulosa.estudio/news/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nebulosa.estudio/news/"/>
+  </url>
+  <url>
+    <loc>https://nebulosa.estudio/news/las-mejores-apps-salud-2026.html</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nebulosa.estudio/news/las-mejores-apps-salud-2026.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nebulosa.estudio/news/las-mejores-apps-salud-2026.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nebulosa.estudio/news/las-mejores-apps-salud-2026.html"/>
+  </url>
+</urlset>

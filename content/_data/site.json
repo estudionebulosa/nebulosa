@@ -1,0 +1,60 @@
+{
+  "name": "Nebulosa Estudio",
+  "domain": "https://nebulosa.estudio",
+  "url": "https://nebulosa.estudio/",
+  "description": "Estudio independiente de desarrollo de aplicaciones móviles. Diseñamos y construimos apps para iOS y Android, publicadas en Google Play y App Store.",
+  "language": "es",
+  "locale": "es_ES",
+  "localeAlt": "en_US",
+  "email": "hola@nebulosa.estudio",
+  "rss": "/feed.xml",
+  "jsonFeed": "/feed.json",
+  "sitemap": "/sitemap.xml",
+  "llms": "/llms.txt",
+  "manifest": "/site.webmanifest",
+  "assets": "/assets",
+  "ogImage": "/assets/og-image.png",
+  "favicon": "/assets/favicon.svg",
+  "appleTouchIcon": "/assets/apple-touch-icon.png",
+  "themeDark": "#0a0a14",
+  "themeLight": "#fafafc",
+  "year": 2026,
+  "social": {
+    "twitter": "@nebulosa",
+    "twitterCreator": "@marta_dev",
+    "mastodon": "https://mastodon.social/@nebulosa",
+    "linkedin": "nebulosa-estudio",
+    "github": "https://github.com/nebulosa",
+    "siteName": "Nebulosa Estudio"
+  },
+
+  "nav": [
+    { "href": "/#apps", "labelEs": "Apps", "labelEn": "Apps" },
+    { "href": "/#services", "labelEs": "Servicios", "labelEn": "Services" },
+    { "href": "/#process", "labelEs": "Proceso", "labelEn": "Process" },
+    { "src": "@news", "labelEs": "Noticias", "labelEn": "News", "current": true },
+    { "href": "/#about", "labelEs": "Estudio", "labelEn": "Studio" },
+    { "href": "/#contact", "labelEs": "Contacto", "labelEn": "Contact" }
+  ],
+
+  "footerLinks": [
+    { "href": "/#apps", "labelEs": "Apps", "labelEn": "Apps" },
+    { "src": "@news", "labelEs": "Noticias", "labelEn": "News" },
+    { "src": "sitemap", "labelEs": "Mapa del sitio", "labelEn": "Sitemap" },
+    { "src": "rss", "label": "RSS" },
+    { "href": "/#contact", "labelEs": "Contacto", "labelEn": "Contact" }
+  ],
+
+  "share": [
+    { "name": "X / Twitter", "url": "https://twitter.com/intent/tweet?url={u}&text={t}" },
+    { "name": "LinkedIn", "url": "https://www.linkedin.com/sharing/share-offsite/?url={u}" },
+    { "name": "WhatsApp", "url": "https://wa.me/?text={t}%20{u}" },
+    { "name": "Telegram", "url": "https://t.me/share/url?url={u}&text={t}" },
+    { "name": "Email", "url": "mailto:?subject={t}&body={u}" }
+  ],
+
+  "storeBase": "",
+  "readingWpm": 200,
+  "xDefault": "es",
+  "timezone": "Europe/Madrid"
+}

@@ -1,0 +1,30 @@
+# Edge in front of GitHub Pages.
+# DNS for nebulosa.estudio points at GitHub Pages; this worker intercepts
+# the same hostname, applies redirects + security headers + /api/contact,
+# then fetch() continues to the GitHub Pages origin.
+#
+# Deploy:  npx wrangler deploy
+#    or the GitHub Actions job once CLOUDFLARE_API_TOKEN is set.
+#
+# Uncomment the routes after the zone exists in this Cloudflare account.
+# Until then the script deploys but does not receive traffic.
+
+name = "nebulosa"
+main = "worker.js"
+compatibility_date = "2026-01-15"
+workers_dev = false
+
+# [[routes]]
+# pattern = "nebulosa.estudio/*"
+# zone_name = "nebulosa.estudio"
+#
+# [[routes]]
+# pattern = "www.nebulosa.estudio/*"
+# zone_name = "nebulosa.estudio"
+
+[vars]
+CONTACT_TO = "hola@nebulosa.estudio"
+# Optional secrets (wrangler secret put / GitHub Actions secrets):
+#   RESEND_API_KEY   — send mail via Resend
+#   CONTACT_FROM     — verified sender, e.g. "Nebulosa <hola@nebulosa.estudio>"
+#   CONTACT_WEBHOOK  — generic JSON POST if you are not using Resend

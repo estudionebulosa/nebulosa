@@ -1,0 +1,19 @@
+<script>
+    /* Language bootstrap — the landing is bilingual in a single DOM
+       (es/en spans toggled by CSS), so the stored or navigator language
+       must be applied before paint. Articles set lang server-side. */
+    (function () {
+        try {
+            var l = localStorage.getItem("neb-lang");
+            if (!l) {
+                l =
+                    (navigator.language || "es")
+                        .slice(0, 2)
+                        .toLowerCase() === "en"
+                    ? "en"
+                    : "es";
+            }
+            document.documentElement.lang = l;
+        } catch (e) {}
+    })();
+</script>

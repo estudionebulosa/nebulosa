@@ -1,0 +1,88 @@
+---
+# Template admin — built ONLY with NEB_ADMIN=1 (never shipped to production)
+permalink: /admin/index.html
+noindex: true
+eleventyExcludeFromCollections: true
+---
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Admin de plantilla · {{ site.name }}</title>
+<style>
+:root{--bg:#0a0a14;--panel:#12121f;--panel2:#171728;--border:#26263d;--fg:#e8e8f2;--mut:#9a9ab5;--acc:#8b5cf6;--ok:#34d399;--warn:#fbbf24;--err:#f87171;--mono:ui-monospace,SFMono-Regular,Menlo,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 system-ui,-apple-system,sans-serif}
+.abar{position:sticky;top:0;z-index:5;display:flex;gap:16px;align-items:center;padding:10px 18px;background:var(--panel);border-bottom:1px solid var(--border)}
+.abar b{color:#fff}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs button{background:transparent;border:1px solid var(--border);color:var(--mut);border-radius:8px;padding:5px 12px;cursor:pointer;font:inherit}
+.tabs button.on{background:var(--acc);border-color:var(--acc);color:#fff}
+#status{margin-left:auto;font-size:12px;color:var(--mut);max-width:46ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#status.ok{color:var(--ok)}#status.err{color:var(--err)}
+main{display:grid;grid-template-columns:300px 1fr;min-height:calc(100vh - 48px)}
+main.wide{grid-template-columns:1fr}
+.side{border-right:1px solid var(--border);padding:14px;overflow:auto}
+.pane{padding:18px 22px;overflow:auto}
+h2{margin:.2em 0 .6em;font-size:16px}h3{margin:1.4em 0 .5em;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:14px}
+label.f{display:block;margin:0 0 10px}
+label.f span{display:block;font-size:12px;color:var(--mut);margin-bottom:3px}
+input,textarea,select{width:100%;background:var(--panel2);border:1px solid var(--border);border-radius:7px;color:var(--fg);padding:7px 9px;font:inherit}
+input:focus,textarea:focus,select:focus{outline:1px solid var(--acc)}
+textarea{min-height:64px;resize:vertical}
+textarea.code{font-family:var(--mono);font-size:12.5px;white-space:pre}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+.chk{display:flex;gap:8px;align-items:center;margin:6px 0}
+.chk input{width:auto}
+button.btn{background:var(--acc);border:0;color:#fff;border-radius:8px;padding:8px 16px;cursor:pointer;font:inherit;font-weight:600}
+button.btn.ghost{background:transparent;border:1px solid var(--border);color:var(--mut);font-weight:400}
+button.btn.sm{padding:4px 10px;font-size:12.5px}
+.item{border:1px dashed var(--border);border-radius:9px;padding:10px 12px;margin-bottom:10px;position:relative}
+.item .del{position:absolute;top:6px;right:8px;background:none;border:0;color:var(--err);cursor:pointer;font-size:15px}
+.aticle{padding:9px 10px;border-radius:8px;cursor:pointer;border:1px solid transparent;display:block;margin-bottom:6px}
+.aticle:hover{background:var(--panel2)}
+.aticle.on{background:var(--panel2);border-color:var(--acc)}
+.aticle .t{font-weight:600;font-size:13.5px}
+.badges{display:flex;gap:5px;margin-top:3px;flex-wrap:wrap}
+.bdg{font-size:10.5px;padding:1px 7px;border-radius:99px;border:1px solid var(--border);color:var(--mut)}
+.bdg.es{border-color:#3b82f6;color:#93c5fd}.bdg.en{border-color:#8b5cf6;color:#c4b5fd}
+.bdg.draft{border-color:var(--warn);color:var(--warn)}.bdg.pair{border-color:var(--ok);color:var(--ok)}
+.seg{display:flex;gap:4px;margin-bottom:14px}
+.seg button{flex:0 0 auto;background:transparent;border:1px solid var(--border);color:var(--mut);border-radius:7px;padding:4px 12px;cursor:pointer;font:inherit;font-size:13px}
+.seg button.on{background:var(--panel2);color:var(--fg);border-color:var(--acc)}
+.chkbar{border-radius:9px;padding:10px 14px;margin:12px 0;font-size:13px}
+.chkbar.ok{background:#052e23;border:1px solid #14532d;color:var(--ok)}
+.chkbar.bad{background:#2e1515;border:1px solid #5b1c1c;color:var(--err)}
+.chkbar.warn{background:#2e2510;border:1px solid #5b4a1c;color:var(--warn)}
+.serp{background:#fff;color:#202124;border-radius:10px;padding:16px 18px;max-width:600px}
+.serp .u{color:#202124;font-size:13px}.serp .t{color:#1a0dab;font-size:19px;cursor:pointer}.serp .d{color:#4d5156;font-size:13.5px}
+.xcard{background:#fff;border-radius:14px;overflow:hidden;max-width:440px;border:1px solid #ddd}
+.xcard .img{height:200px;background:linear-gradient(120deg,#0a0a14,#8b5cf6,#ec4899);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+.xcard .bx{padding:10px 14px}.xcard .bx .m{font-size:12px;color:#657786}.xcard .bx .tt{font-weight:700;margin:2px 0}.xcard .bx .ds{font-size:13px;color:#0f1419}
+.kv{display:grid;grid-template-columns:170px 1fr;gap:4px 14px;font-size:13px;font-family:var(--mono)}
+.kv b{color:var(--mut);font-weight:500}
+.hint{font-size:12px;color:var(--mut);margin-top:-6px;margin-bottom:10px}
+.toolbar{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+.wordcount{font-size:12px;color:var(--mut);margin-top:6px}
+</style>
+</head>
+<body>
+<header class="abar">
+  <b>Nebulosa · Admin de plantilla</b>
+  <nav class="tabs" id="tabs">
+    <button data-tab="global">Global</button>
+    <button data-tab="registry">Registry</button>
+    <button data-tab="articles">Artículos</button>
+    <button data-tab="templates">Plantillas</button>
+    <button data-tab="preview">Preview</button>
+  </nav>
+  <span id="status">—</span>
+</header>
+<main id="main"></main>
+<script>window.__ADMIN__ = {{ adminPayload | safe }};</script>
+<script>{% include "partials/admin-app.njk" %}</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es" data-theme="auto"
+      data-title-es="{{ title }}"
+      data-title-en="{{ titleEn }}">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="{{ site.themeDark }}" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="{{ site.themeLight }}" media="(prefers-color-scheme: light)" />
+
+    {# ── SEO core (landing = bilingual single file, self-referential hreflang) ── #}
+    <title>{{ title }}</title>
+    <meta name="description" content="{{ site.description }}" />
+    {% if keywords %}<meta name="keywords" content="{{ keywords }}" />{% endif %}
+    <meta name="author" content="{{ site.name }}" />
+    <meta name="robots" content="{{ robots }}" />
+    <link rel="canonical" href="{{ site.url }}" />
+    <link rel="alternate" hreflang="es" href="{{ site.url }}" />
+    <link rel="alternate" hreflang="en" href="{{ site.url }}news/en/" />
+    <link rel="alternate" hreflang="x-default" href="{{ site.url }}" />
+
+    {# ── feeds & machine discovery (SEO / LLMO) ──────────────── #}
+    <link rel="alternate" type="application/rss+xml" title="{{ site.name }} — Noticias (RSS)" href="{{ site.rss }}" />
+    <link rel="alternate" type="application/feed+json" title="{{ site.name }} — Noticias (JSON Feed)" href="{{ site.jsonFeed }}" />
+    <link rel="sitemap" type="application/xml" href="{{ site.sitemap }}" />
+    <link rel="author" href="{{ site.llms }}" />
+    <link rel="manifest" href="{{ site.manifest }}" />
+
+    {# ── icons ───────────────────────────────────────────────── #}
+    <link rel="icon" href="{{ site.favicon }}" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="{{ site.appleTouchIcon }}" />
+
+    {# ── Open Graph (website, not article) ────────────────────── #}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="{{ site.social.siteName }}" />
+    <meta property="og:title" content="{{ ogTitle or title }}" />
+    <meta property="og:description" content="{{ ogDescription or site.description }}" />
+    <meta property="og:url" content="{{ site.url }}" />
+    <meta property="og:image" content="{{ site.ogImage | abs }}" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:locale" content="{{ site.locale }}" />
+
+    {# ── Twitter / X ─────────────────────────────────────────── #}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="{{ site.social.twitter }}" />
+    <meta name="twitter:title" content="{{ ogTitle or title }}" />
+    <meta name="twitter:description" content="{{ ogDescription or site.description }}" />
+    <meta name="twitter:image" content="{{ site.ogImage | abs }}" />
+
+    {# ── JSON-LD (WebSite/Organization/Person + apps) ─────────── #}
+    {% include "partials/landing-jsonld.njk" %}
+
+    {% include "partials/theme-boot.njk" %}
+    {% include "partials/lang-boot.njk" %}
+
+    <style>
+{% include "partials/landing-styles.njk" %}
+    </style>
+</head>
+<body>
+    <a class="skip" href="#main">
+        <span lang="es">Saltar al contenido</span>
+        <span lang="en">Skip to content</span>
+    </a>
+
+    {% include "partials/nav.njk" %}
+
+    {{ content | safe }}
+
+    {% include "partials/footer.njk" %}
+
+    {% include "partials/toggles.njk" %}
+</body>
+</html>
