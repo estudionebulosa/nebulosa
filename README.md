@@ -168,7 +168,7 @@ python3 -m http.server 8765 --directory _site
    * **Build command:** `npm run build`
    * **Build output directory:** `_site`
    * **Node version:** 18+ (Eleventy 3)
-4. Deploy. Every push to `main` triggers a new deploy with instant rollback.
+4. Deploy. Every push to `main` triggers a new deploy with instant rollback. 
 
 **Option B — Direct upload (no Git)**
 
